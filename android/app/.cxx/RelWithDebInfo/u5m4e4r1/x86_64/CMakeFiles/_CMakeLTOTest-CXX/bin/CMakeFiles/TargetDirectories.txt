@@ -1,0 +1,4 @@
+D:/PROJECTS/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/u5m4e4r1/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir
+D:/PROJECTS/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/u5m4e4r1/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+D:/PROJECTS/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/u5m4e4r1/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+D:/PROJECTS/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/u5m4e4r1/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir

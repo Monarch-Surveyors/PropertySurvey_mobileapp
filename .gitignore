@@ -1,0 +1,17 @@
+node_modules/
+
+android/.gradle/
+android/build/
+android/app/build/
+
+ios/build/
+
+*.log
+*.tmp
+
+.vscode/
+
+.env
+.env.*
+
+.DS_Store
