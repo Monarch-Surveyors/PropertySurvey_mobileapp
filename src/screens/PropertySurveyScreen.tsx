@@ -17,6 +17,7 @@ import ImageCard from '../components/ImageCard';
 import {ORANGE} from '../theme';
 import ViewShot, {captureRef} from 'react-native-view-shot';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import RNFS from 'react-native-fs';
 import {useLocation} from '../hooks/useLocation';
 
 type Props = {
@@ -73,9 +74,9 @@ export default function PropertySurveyScreen({navigation}: Props) {
       return;
     }
 
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android' && Platform.Version < 33) {
       const granted = await PermissionsAndroid.request(
-         PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
+         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
       );
       if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
         Alert.alert('Permission Denied', 'Storage permission required to save images');
@@ -86,19 +87,23 @@ export default function PropertySurveyScreen({navigation}: Props) {
     setSaving(true);
     try {
       let savedCount = 0;
+      const folderPath = `${RNFS.PicturesDirectoryPath}/PropertySurvey`;
+      await RNFS.mkdir(folderPath, {NSURLIsExcludedFromBackupKey: false});
+      
       for (let i = 0; i < images.length; i++) {
         if (images[i]) {
           const uri = await captureRef(viewShotRefs[i], {format: 'jpg', quality: 0.95});
           const fileName = `${imageLabels[i]}.jpg`;
-          await CameraRoll.save(uri, {
-            type: 'photo',
-            album: 'PropertySurvey',
-          });
+          const destPath = `${folderPath}/${fileName}`;
+          
+          await RNFS.copyFile(uri, destPath);
+          await CameraRoll.saveAsset(destPath, {type: 'photo', album: 'PropertySurvey'});
+          
           console.log('Saved:', fileName);
           savedCount++;
         }
       }
-      Alert.alert('Success', `${savedCount} image(s) saved to gallery in PropertySurvey album!`);
+      Alert.alert('Success', `${savedCount} image(s) saved to PropertySurvey folder!`);
     } catch (error) {
       console.log('Save Error:', error);
       Alert.alert('Error', 'Failed to save images: ' + error);
