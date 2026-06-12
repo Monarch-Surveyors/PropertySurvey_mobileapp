@@ -183,6 +183,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
                 imageUri={images[0]}
                 onImageSelected={uri => handleImageSelected(0, uri)}
                 onDelete={() => handleDelete(0)}
+                location={location}
               />
               <View style={styles.imageSpacer} />
               <ImageCard
@@ -190,6 +191,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
                 imageUri={images[1]}
                 onImageSelected={uri => handleImageSelected(1, uri)}
                 onDelete={() => handleDelete(1)}
+                location={location}
               />
               <View style={styles.imageSpacer} />
               <ImageCard
@@ -197,6 +199,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
                 imageUri={images[2]}
                 onImageSelected={uri => handleImageSelected(2, uri)}
                 onDelete={() => handleDelete(2)}
+                location={location}
               />
             </View>
 
@@ -211,7 +214,9 @@ export default function PropertySurveyScreen({navigation}: Props) {
                 <View style={styles.offscreenWm}>
                   <Text style={styles.offscreenLabel}>{imageLabels[idx]}</Text>
                   <Text style={styles.offscreenText}>
-                    {`Lat: ${location.latitude}  Lng: ${location.longitude}`}
+                    {ready
+                      ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
+                      : 'Fetching location...'}
                   </Text>
                   {/* <Text style={styles.offscreenText}>{`Date: ${formatDate()}  Time: ${formatTime()}`}</Text> */}
                 </View>
@@ -219,6 +224,11 @@ export default function PropertySurveyScreen({navigation}: Props) {
             ) : null)}
 
             <Divider style={styles.divider} />
+
+            {/* Location status */}
+            {!ready && (
+              <Text style={styles.locationStatus}>📍 Fetching GPS location...</Text>
+            )}
 
             {/* Save Images Button */}
             <Button
@@ -229,8 +239,8 @@ export default function PropertySurveyScreen({navigation}: Props) {
               contentStyle={styles.saveButtonContent}
               labelStyle={styles.saveButtonLabel}
               loading={saving}
-              disabled={saving}>
-              {saving ? 'SAVING...' : 'SAVE IMAGES'}
+              disabled={saving || !ready}>
+              {saving ? 'SAVING...' : !ready ? 'WAITING FOR GPS...' : 'SAVE IMAGES'}
             </Button>
 
             {/* Sync Button */}
@@ -427,6 +437,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '900',
     marginBottom: 8,
+  },
+  locationStatus: {
+    textAlign: 'center',
+    color: '#FF9800',
+    fontSize: 12,
+    marginBottom: 10,
   },
   offscreenText: {
     color: '#fff',

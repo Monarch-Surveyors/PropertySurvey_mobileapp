@@ -47,33 +47,53 @@ export function useLocation() {
 
   useEffect(() => {
     let mounted = true;
+    let watchId: number | null = null;
+
     (async () => {
       const permitted = await requestLocationPermission();
       if (!permitted) {
         setReady(true);
         return;
       }
-      Geolocation.getCurrentPosition(
-        async pos => {
-          const {latitude, longitude} = pos.coords;
-          const address = await reverseGeocode(latitude, longitude);
-          if (mounted) {
-            setLocation({
-              latitude: latitude.toFixed(6),
-              longitude: longitude.toFixed(6),
-              address,
-            });
-            setReady(true);
+
+      const onSuccess = async (pos: {coords: {latitude: number; longitude: number}}) => {
+        if (!mounted) return;
+        const {latitude, longitude} = pos.coords;
+        const address = await reverseGeocode(latitude, longitude);
+        if (mounted) {
+          setLocation({
+            latitude: latitude.toFixed(6),
+            longitude: longitude.toFixed(6),
+            address,
+          });
+          setReady(true);
+          // Stop watching once we have a good fix
+          if (watchId !== null) {
+            Geolocation.clearWatch(watchId);
+            watchId = null;
           }
-        },
-        () => {
-          if (mounted) setReady(true);
-        },
-        {enableHighAccuracy: true, timeout: 10000, maximumAge: 60000},
+        }
+      };
+
+      const onError = () => {
+        // Try once more with low accuracy as fallback
+        Geolocation.getCurrentPosition(
+          onSuccess,
+          () => { if (mounted) setReady(true); },
+          {enableHighAccuracy: false, timeout: 15000, maximumAge: 0},
+        );
+      };
+
+      watchId = Geolocation.watchPosition(
+        onSuccess,
+        onError,
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 0, distanceFilter: 0},
       );
     })();
+
     return () => {
       mounted = false;
+      if (watchId !== null) Geolocation.clearWatch(watchId);
     };
   }, []);
 

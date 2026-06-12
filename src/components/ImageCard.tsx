@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import {Text, Surface, TouchableRipple, Divider} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useLocation} from '../hooks/useLocation';
 import {ORANGE} from '../theme';
+import {LocationData} from '../hooks/useLocation';
 
 const CARD_SIZE = (Dimensions.get('window').width - 48 - 24) / 3;
 const {width: W, height: H} = Dimensions.get('window');
@@ -24,6 +24,7 @@ type Props = {
   imageUri: string | null;
   onImageSelected: (uri: string) => void;
   onDelete: () => void;
+  location: LocationData;
 };
 
 export default function ImageCard({
@@ -32,11 +33,11 @@ export default function ImageCard({
   imageUri,
   onImageSelected,
   onDelete,
+  location,
 }: Props) {
   const [sheetVisible, setSheetVisible] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const {location} = useLocation();
 
   const formatDate = useCallback(() => {
     const d = new Date();
