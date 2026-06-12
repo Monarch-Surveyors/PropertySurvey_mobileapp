@@ -23,7 +23,7 @@ type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'PropertySurvey'>;
 };
 
-const WARD_ITEMS = Array.from({length: 100}, (_, i) => `${i + 1}`);
+const WARD_ITEMS = Array.from({length: 10}, (_, i) => `${i + 1}`);
 
 function formatDate(): string {
   const d = new Date();
@@ -63,13 +63,13 @@ export default function PropertySurveyScreen({navigation}: Props) {
   };
 
   const handleSaveImages = async () => {
+    if (!ward || !property) {
+      Alert.alert('Error', 'Ward and Property numbers are required');
+      return;
+    }
     const filledImages = images.filter(img => img !== null);
     if (filledImages.length === 0) {
       Alert.alert('Error', 'No images to save');
-      return;
-    }
-    if (!ward || !property) {
-      Alert.alert('Error', 'Ward and Property numbers are required');
       return;
     }
 
@@ -89,11 +89,12 @@ export default function PropertySurveyScreen({navigation}: Props) {
       for (let i = 0; i < images.length; i++) {
         if (images[i]) {
           const uri = await captureRef(viewShotRefs[i], {format: 'jpg', quality: 0.95});
+          const fileName = `${imageLabels[i]}.jpg`;
           await CameraRoll.save(uri, {
             type: 'photo',
             album: 'PropertySurvey',
           });
-          console.log('Saved:', imageLabels[i]);
+          console.log('Saved:', fileName);
           savedCount++;
         }
       }
@@ -108,6 +109,26 @@ export default function PropertySurveyScreen({navigation}: Props) {
 
   const handleSyncImages = () => {
     Alert.alert('Sync', 'All images synced with server!');
+  };
+
+  const handleClearAll = () => {
+    Alert.alert(
+      'Clear All',
+      'Are you sure you want to clear all fields and images?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Clear',
+          style: 'destructive',
+          onPress: () => {
+            setWard('');
+            setProperty('');
+            setPartition('');
+            setImages([null, null, null]);
+          },
+        },
+      ],
+    );
   };
 
   return (
@@ -230,18 +251,30 @@ export default function PropertySurveyScreen({navigation}: Props) {
               <Text style={styles.locationStatus}>📍 Fetching GPS location...</Text>
             )}
 
-            {/* Save Images Button */}
-            <Button
-              mode="contained"
-              onPress={handleSaveImages}
-              buttonColor={ORANGE}
-              style={styles.saveButton}
-              contentStyle={styles.saveButtonContent}
-              labelStyle={styles.saveButtonLabel}
-              loading={saving}
-              disabled={saving || !ready}>
-              {saving ? 'SAVING...' : !ready ? 'WAITING FOR GPS...' : 'SAVE IMAGES'}
-            </Button>
+            {/* Action Buttons Row */}
+            <View style={styles.actionRow}>
+              <Button
+                mode="outlined"
+                onPress={handleClearAll}
+                style={styles.clearButton}
+                contentStyle={styles.clearButtonContent}
+                labelStyle={styles.clearButtonLabel}
+                textColor="#F44336"
+                icon="close-circle-outline">
+                CLEAR ALL
+              </Button>
+              <Button
+                mode="contained"
+                onPress={handleSaveImages}
+                buttonColor={ORANGE}
+                style={styles.saveButton}
+                contentStyle={styles.saveButtonContent}
+                labelStyle={styles.saveButtonLabel}
+                loading={saving}
+                disabled={saving || !ready}>
+                {saving ? 'SAVING...' : !ready ? 'WAITING FOR GPS...' : 'SAVE IMAGES'}
+              </Button>
+            </View>
 
             {/* Sync Button */}
             <View style={styles.syncWrapper}>
@@ -352,10 +385,29 @@ const styles = StyleSheet.create({
   imageSpacer: {
     width: 8,
   },
+  actionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10,
+  },
+  clearButton: {
+    borderRadius: 10,
+    flex: 1,
+    borderColor: '#F44336',
+    borderWidth: 1.5,
+  },
+  clearButtonContent: {
+    height: 46,
+  },
+  clearButtonLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+  },
   saveButton: {
     borderRadius: 10,
-    alignSelf: 'center',
-    width: '60%',
+    flex: 1,
     elevation: 3,
   },
   saveButtonContent: {
