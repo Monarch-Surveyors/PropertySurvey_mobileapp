@@ -213,7 +213,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
                   <Text style={styles.offscreenText}>
                     {`Lat: ${location.latitude}  Lng: ${location.longitude}`}
                   </Text>
-                  <Text style={styles.offscreenText}>{`Date: ${formatDate()}  Time: ${formatTime()}`}</Text>
+                  {/* <Text style={styles.offscreenText}>{`Date: ${formatDate()}  Time: ${formatTime()}`}</Text> */}
                 </View>
               </ViewShot>
             ) : null)}
@@ -423,14 +423,14 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   offscreenLabel: {
-    color: '#FFD700',
+    color: '#f52b07',
     fontSize: 22,
     fontWeight: '700',
     marginBottom: 8,
   },
   offscreenText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: '500',
     lineHeight: 26,
   },

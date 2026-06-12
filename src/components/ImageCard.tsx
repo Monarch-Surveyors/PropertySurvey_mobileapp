@@ -130,10 +130,10 @@ export default function ImageCard({
             <Text style={styles.wmText}>
               {`Lat: ${location.latitude}  Lng: ${location.longitude}`}
             </Text>
-            <Text style={styles.wmText}>{`Date: ${formatDate()}`}</Text>
+            {/* <Text style={styles.wmText}>{`Date: ${formatDate()}`}</Text>
             <Text style={styles.wmText} numberOfLines={1}>
               {location.address}
-            </Text>
+            </Text> */}
           </View>
           <TouchableOpacity
             style={styles.closeBtn}
@@ -251,13 +251,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   wmLabel: {
-    color: '#FFD700',
-    fontSize: 16,
-    fontWeight: '700',
+    color: '#f71606',
+    fontSize: 22,
+    fontWeight: '900',
     marginBottom: 6,
     letterSpacing: 0.5,
   },
-  wmText: {color: '#fff', fontSize: 13, fontWeight: '500', lineHeight: 20},
+  wmText: {color: '#fff', fontSize: 19, fontWeight: '500', lineHeight: 20},
   closeBtn: {
     position: 'absolute',
     top: 16,
