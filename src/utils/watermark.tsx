@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   watermarkText: {
     color: '#FFFFFF',
-    fontSize: 11,
+    fontSize: 20,
     fontWeight: '500',
     lineHeight: 16,
   },

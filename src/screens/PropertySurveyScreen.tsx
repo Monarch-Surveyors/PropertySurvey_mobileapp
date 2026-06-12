@@ -424,14 +424,14 @@ const styles = StyleSheet.create({
   },
   offscreenLabel: {
     color: '#f52b07',
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: 40,
+    fontWeight: '900',
     marginBottom: 8,
   },
   offscreenText: {
     color: '#fff',
-    fontSize: 22,
-    fontWeight: '500',
-    lineHeight: 26,
+    fontSize: 36,
+    fontWeight: '600',
+    lineHeight: 42,
   },
 });
