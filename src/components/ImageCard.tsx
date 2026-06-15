@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   PermissionsAndroid,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {Text, Surface, TouchableRipple, Divider} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -39,31 +40,69 @@ export default function ImageCard({
   const [previewVisible, setPreviewVisible] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  const formatDate = useCallback(() => {
-    const d = new Date();
-    return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
-  }, []);
-
   const handleTakePhoto = async () => {
     setSheetVisible(false);
-    if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-      );
-      if (granted !== PermissionsAndroid.RESULTS.GRANTED) return;
+    try {
+      if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+        );
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          Alert.alert('Permission Denied', 'Camera permission is required to take photos');
+          return;
+        }
+      }
+
+      setProcessing(true);
+      const result = await launchCamera({
+        mediaType: 'photo',
+        quality: 0.8,
+        maxWidth: 1600,
+        maxHeight: 1600,
+        saveToPhotos: false,
+      });
+
+      if (result.errorMessage) {
+        Alert.alert('Camera Error', result.errorMessage);
+        return;
+      }
+
+      if (result.assets?.[0]?.uri) {
+        onImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log('Camera Error:', error);
+      Alert.alert('Camera Error', 'Unable to take photo. Please try again.');
+    } finally {
+      setProcessing(false);
     }
-    setProcessing(true);
-    const result = await launchCamera({mediaType: 'photo', quality: 0.9});
-    setProcessing(false);
-    if (result.assets?.[0]?.uri) onImageSelected(result.assets[0].uri);
   };
 
   const handleChooseGallery = async () => {
     setSheetVisible(false);
-    setProcessing(true);
-    const result = await launchImageLibrary({mediaType: 'photo', quality: 0.9});
-    setProcessing(false);
-    if (result.assets?.[0]?.uri) onImageSelected(result.assets[0].uri);
+    try {
+      setProcessing(true);
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        quality: 0.8,
+        maxWidth: 1600,
+        maxHeight: 1600,
+      });
+
+      if (result.errorMessage) {
+        Alert.alert('Gallery Error', result.errorMessage);
+        return;
+      }
+
+      if (result.assets?.[0]?.uri) {
+        onImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log('Gallery Error:', error);
+      Alert.alert('Gallery Error', 'Unable to choose photo. Please try again.');
+    } finally {
+      setProcessing(false);
+    }
   };
 
   return (
@@ -154,7 +193,7 @@ export default function ImageCard({
           style={styles.overlay}
           activeOpacity={1}
           onPress={() => setSheetVisible(false)}>
-          <Surface style={styles.sheet} elevation={8}>
+          <Surface style={styles.sheet} elevation={5}>
             <View style={styles.sheetHandle} />
             <Text style={styles.sheetTitle}>Select Image Source</Text>
             <Divider />

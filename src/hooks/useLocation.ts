@@ -87,7 +87,7 @@ export function useLocation() {
       watchId = Geolocation.watchPosition(
         onSuccess,
         onError,
-        {enableHighAccuracy: true, timeout: 15000, maximumAge: 0, distanceFilter: 0},
+        {enableHighAccuracy: true, distanceFilter: 0},
       );
     })();
 

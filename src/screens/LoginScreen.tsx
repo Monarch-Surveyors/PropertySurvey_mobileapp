@@ -6,7 +6,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {Card, Text, TextInput, Button, Chip, Banner} from 'react-native-paper';
+import {Card, Text, TextInput, Button} from 'react-native-paper';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../navigation/AppNavigator';
 import {ORANGE} from '../theme';

@@ -4,8 +4,6 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
-  PermissionsAndroid,
-  Platform,
   Image,
 } from 'react-native';
 import {Card, Text, Button, Divider, TextInput} from 'react-native-paper';
@@ -15,7 +13,7 @@ import Header from '../components/Header';
 import CustomDropdown from '../components/CustomDropdown';
 import ImageCard from '../components/ImageCard';
 import {ORANGE} from '../theme';
-import ViewShot, {captureRef} from 'react-native-view-shot';
+import ViewShot, {captureRef, type ViewShotRef} from 'react-native-view-shot';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import RNFS from 'react-native-fs';
 import {useLocation} from '../hooks/useLocation';
@@ -26,23 +24,17 @@ type Props = {
 
 const WARD_ITEMS = Array.from({length: 10}, (_, i) => `${i + 1}`);
 
-function formatDate(): string {
-  const d = new Date();
-  return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
-}
-
-function formatTime(): string {
-  const d = new Date();
-  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
-}
-
 export default function PropertySurveyScreen({navigation}: Props) {
   const [ward, setWard] = useState('');
   const [property, setProperty] = useState('');
   const [partition, setPartition] = useState('');
   const [images, setImages] = useState<(string | null)[]>([null, null, null]);
   const [saving, setSaving] = useState(false);
-  const viewShotRefs = [useRef<ViewShot>(null), useRef<ViewShot>(null), useRef<ViewShot>(null)];
+  const viewShotRefs = [
+    useRef<ViewShotRef>(null),
+    useRef<ViewShotRef>(null),
+    useRef<ViewShotRef>(null),
+  ];
   const {location, ready} = useLocation();
 
   const imageLabels = useMemo(() => {
@@ -74,30 +66,29 @@ export default function PropertySurveyScreen({navigation}: Props) {
       return;
     }
 
-    if (Platform.OS === 'android' && Platform.Version < 33) {
-      const granted = await PermissionsAndroid.request(
-         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-      );
-      if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-        Alert.alert('Permission Denied', 'Storage permission required to save images');
-        return;
-      }
-    }
-
     setSaving(true);
+    const tempFiles: string[] = [];
     try {
       let savedCount = 0;
-      const folderPath = `${RNFS.PicturesDirectoryPath}/PropertySurvey`;
-      await RNFS.mkdir(folderPath, {NSURLIsExcludedFromBackupKey: false});
       
       for (let i = 0; i < images.length; i++) {
         if (images[i]) {
-          const uri = await captureRef(viewShotRefs[i], {format: 'jpg', quality: 0.8});
+          const viewShot = viewShotRefs[i].current;
+          if (!viewShot) {
+            throw new Error(`Image ${i + 1} is not ready to save`);
+          }
+
+          const uri = await captureRef(viewShot, {format: 'jpg', quality: 0.8});
           const fileName = `${imageLabels[i]}.jpg`;
-          const destPath = `${folderPath}/${fileName}`;
+          const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
+          const tempPath = uri.replace('file://', '');
           
-          await RNFS.copyFile(uri, destPath);
-          await CameraRoll.saveAsset(destPath, {type: 'photo', album: 'PropertySurvey'});
+          if (await RNFS.exists(destPath)) {
+            await RNFS.unlink(destPath);
+          }
+          await RNFS.copyFile(tempPath, destPath);
+          tempFiles.push(tempPath, destPath);
+          await CameraRoll.saveAsset(`file://${destPath}`, {type: 'photo', album: 'PropertySurvey'});
           
           console.log('Saved:', fileName);
           savedCount++;
@@ -108,6 +99,17 @@ export default function PropertySurveyScreen({navigation}: Props) {
       console.log('Save Error:', error);
       Alert.alert('Error', 'Failed to save images: ' + error);
     } finally {
+      await Promise.all(
+        tempFiles.map(async filePath => {
+          try {
+            if (await RNFS.exists(filePath)) {
+              await RNFS.unlink(filePath);
+            }
+          } catch (cleanupError) {
+            console.log('Temp cleanup failed:', cleanupError);
+          }
+        }),
+      );
       setSaving(false);
     }
   };
@@ -299,7 +301,6 @@ export default function PropertySurveyScreen({navigation}: Props) {
         </Card>
       </ScrollView>
 
-      Footer Navigation
       {/* <View style={styles.footer}>
         <Button
           mode="outlined"

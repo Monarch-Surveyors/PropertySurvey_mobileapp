@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import ViewShot, {captureRef} from 'react-native-view-shot';
+import ViewShot, {captureRef, type ViewShotRef} from 'react-native-view-shot';
 import RNFS from 'react-native-fs';
 import {LocationData} from '../hooks/useLocation';
 
@@ -15,7 +15,7 @@ function formatDate(): string {
 type WatermarkViewProps = {
   imageUri: string;
   location: LocationData;
-  viewRef: React.RefObject<ViewShot>;
+  viewRef: React.RefObject<ViewShotRef>;
   size: number;
 };
 
@@ -57,7 +57,7 @@ export function WatermarkView({
 }
 
 export async function saveWatermarkedImage(
-  viewRef: React.RefObject<ViewShot>,
+  viewRef: React.RefObject<ViewShotRef>,
 ): Promise<string> {
   try {
     if (!viewRef.current) {
