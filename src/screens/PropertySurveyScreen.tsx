@@ -5,6 +5,8 @@ import {
   ScrollView,
   Alert,
   Image,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
 import {Card, Text, Button, Divider, TextInput} from 'react-native-paper';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -55,6 +57,51 @@ export default function PropertySurveyScreen({navigation}: Props) {
     setImages(updated);
   };
 
+  // ─── Runtime storage permission (version-aware) ───────────────────────────
+  const requestStoragePermission = async (): Promise<boolean> => {
+    if (Platform.OS !== 'android') return true;
+    const api = Number(Platform.Version);
+
+    if (api >= 33) {
+      // Android 13+ → READ_MEDIA_IMAGES
+      const result = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
+        {
+          title: 'Storage Permission Required',
+          message: 'This app needs access to save property images to your gallery.',
+          buttonPositive: 'Allow',
+          buttonNegative: 'Deny',
+        },
+      );
+      return result === PermissionsAndroid.RESULTS.GRANTED;
+    } else if (api >= 29) {
+      // Android 10–12 → READ_EXTERNAL_STORAGE
+      const result = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission Required',
+          message: 'This app needs access to save property images to your gallery.',
+          buttonPositive: 'Allow',
+          buttonNegative: 'Deny',
+        },
+      );
+      return result === PermissionsAndroid.RESULTS.GRANTED;
+    } else {
+      // Android 9 and below → WRITE_EXTERNAL_STORAGE
+      const result = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission Required',
+          message: 'This app needs access to save property images to your gallery.',
+          buttonPositive: 'Allow',
+          buttonNegative: 'Deny',
+        },
+      );
+      return result === PermissionsAndroid.RESULTS.GRANTED;
+    }
+  };
+  // ───────────────────────────────────────────────────────────────────────────
+
   const handleSaveImages = async () => {
     if (!ward || !property) {
       Alert.alert('Error', 'Ward and Property numbers are required');
@@ -63,6 +110,16 @@ export default function PropertySurveyScreen({navigation}: Props) {
     const filledImages = images.filter(img => img !== null);
     if (filledImages.length === 0) {
       Alert.alert('Error', 'No images to save');
+      return;
+    }
+
+    // Request the correct storage permission for this Android version
+    const hasPermission = await requestStoragePermission();
+    if (!hasPermission) {
+      Alert.alert(
+        'Permission Denied',
+        'Storage permission is required to save images. Please allow it in app settings.',
+      );
       return;
     }
 
