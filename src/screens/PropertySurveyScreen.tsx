@@ -92,7 +92,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
       
       for (let i = 0; i < images.length; i++) {
         if (images[i]) {
-          const uri = await captureRef(viewShotRefs[i], {format: 'jpg', quality: 0.95});
+          const uri = await captureRef(viewShotRefs[i], {format: 'jpg', quality: 0.8});
           const fileName = `${imageLabels[i]}.jpg`;
           const destPath = `${folderPath}/${fileName}`;
           
@@ -234,7 +234,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
               <ViewShot
                 key={idx}
                 ref={viewShotRefs[idx]}
-                options={{format: 'jpg', quality: 0.95}}
+                options={{format: 'jpg', quality: 0.8}}
                 style={styles.offscreen}>
                 <Image source={{uri: img}} style={styles.offscreenImg} resizeMode="cover" />
                 <View style={styles.offscreenWm}>
@@ -471,14 +471,14 @@ const styles = StyleSheet.create({
   },
   offscreen: {
     position: 'absolute',
-    width: 1080,
-    height: 1080,
+    width:720,
+    height:720,
     top: -99999,
     left: -99999,
   },
   offscreenImg: {
-    width: 1080,
-    height: 1080,
+    width: 720,
+    height: 720,
   },
   offscreenWm: {
     position: 'absolute',

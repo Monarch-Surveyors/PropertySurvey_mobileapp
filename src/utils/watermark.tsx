@@ -19,7 +19,12 @@ type WatermarkViewProps = {
   size: number;
 };
 
-export function WatermarkView({imageUri, location, viewRef, size}: WatermarkViewProps) {
+export function WatermarkView({
+  imageUri,
+  location,
+  viewRef,
+  size,
+}: WatermarkViewProps) {
   const lines = [
     `Lat: ${location.latitude}  Lng: ${location.longitude}`,
     `Date: ${formatDate()}`,
@@ -29,13 +34,17 @@ export function WatermarkView({imageUri, location, viewRef, size}: WatermarkView
   return (
     <ViewShot
       ref={viewRef}
-      options={{format: 'jpg', quality: 0.92}}
+      options={{
+        format: 'jpg',
+        quality: 0.8,
+      }}
       style={[styles.container, {width: size, height: size}]}>
       <Image
         source={{uri: imageUri}}
         style={StyleSheet.absoluteFill}
         resizeMode="cover"
       />
+
       <View style={styles.watermarkBar}>
         {lines.map((line, i) => (
           <Text key={i} style={styles.watermarkText} numberOfLines={1}>
@@ -50,10 +59,42 @@ export function WatermarkView({imageUri, location, viewRef, size}: WatermarkView
 export async function saveWatermarkedImage(
   viewRef: React.RefObject<ViewShot>,
 ): Promise<string> {
-  const uri = await captureRef(viewRef, {format: 'jpg', quality: 0.92});
-  const dest = `${RNFS.CachesDirectoryPath}/wm_${Date.now()}.jpg`;
-  await RNFS.copyFile(uri, dest);
-  return `file://${dest}`;
+  try {
+    if (!viewRef.current) {
+      throw new Error('ViewShot reference is null');
+    }
+
+    const uri = await captureRef(viewRef.current, {
+      format: 'jpg',
+      quality: 0.8,
+    });
+
+    const dest = `${RNFS.CachesDirectoryPath}/wm_${Date.now()}.jpg`;
+
+    // Remove file if already exists
+    const exists = await RNFS.exists(dest);
+    if (exists) {
+      await RNFS.unlink(dest);
+    }
+
+    await RNFS.copyFile(uri, dest);
+
+    // Cleanup temporary ViewShot file
+    try {
+      const tempPath = uri.replace('file://', '');
+
+      if (await RNFS.exists(tempPath)) {
+        await RNFS.unlink(tempPath);
+      }
+    } catch (cleanupError) {
+      console.log('Temp file cleanup failed:', cleanupError);
+    }
+
+    return `file://${dest}`;
+  } catch (error) {
+    console.error('Watermark save failed:', error);
+    throw error;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -61,6 +102,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: '#000',
   },
+
   watermarkBar: {
     position: 'absolute',
     bottom: 0,
@@ -70,10 +112,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
   },
+
   watermarkText: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '500',
-    lineHeight: 16,
+    lineHeight: 20,
   },
 });
