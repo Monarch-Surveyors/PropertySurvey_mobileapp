@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import ViewShot, {captureRef, type ViewShotRef} from 'react-native-view-shot';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import ViewShot, { captureRef, type ViewShotRef } from 'react-native-view-shot';
 import RNFS from 'react-native-fs';
-import {LocationData} from '../hooks/useLocation';
+import { LocationData } from '../hooks/useLocation';
 
 function formatDate(): string {
   const d = new Date();
@@ -38,11 +38,11 @@ export function WatermarkView({
         format: 'jpg',
         quality: 0.8,
       }}
-      style={[styles.container, {width: size, height: size}]}>
+      style={[styles.container, { width: size, height: size }]}>
       <Image
-        source={{uri: imageUri}}
-        style={StyleSheet.absoluteFill}
-        resizeMode="cover"
+        source={{ uri: imageUri }}
+        style={{ width: '100%', height: '100%' }}
+        resizeMode="contain"
       />
 
       <View style={styles.watermarkBar}>

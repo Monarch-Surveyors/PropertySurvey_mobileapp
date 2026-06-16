@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef} from 'react';
+import React, {useState, useMemo, useRef, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -32,11 +32,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
   const [partition, setPartition] = useState('');
   const [images, setImages] = useState<(string | null)[]>([null, null, null]);
   const [saving, setSaving] = useState(false);
-  const viewShotRefs = [
-    useRef<ViewShotRef>(null),
-    useRef<ViewShotRef>(null),
-    useRef<ViewShotRef>(null),
-  ];
+  const [captureRequest, setCaptureRequest] = useState<{images: string[], labels: string[]} | null>(null);
   const {location, ready} = useLocation();
 
   const imageLabels = useMemo(() => {
@@ -102,6 +98,50 @@ export default function PropertySurveyScreen({navigation}: Props) {
   };
   // ───────────────────────────────────────────────────────────────────────────
 
+  const processCapturedImages = useCallback(async (capturedUris: string[]) => {
+    const req = captureRequest;
+    setCaptureRequest(null);
+    if (!req) return;
+
+    const tempFiles: string[] = [];
+    try {
+      let savedCount = 0;
+      for (let i = 0; i < capturedUris.length; i++) {
+        const uri = capturedUris[i];
+        const fileName = `${req.labels[i]}.jpg`;
+        const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
+        const tempPath = uri.replace('file://', '');
+        
+        if (await RNFS.exists(destPath)) {
+          await RNFS.unlink(destPath);
+        }
+        await RNFS.copyFile(tempPath, destPath);
+        tempFiles.push(tempPath, destPath);
+        await CameraRoll.saveAsset(`file://${destPath}`, {type: 'photo', album: 'PropertySurvey'});
+        
+        console.log('Saved:', fileName);
+        savedCount++;
+      }
+      Alert.alert('Success', `${savedCount} image(s) saved to PropertySurvey folder!`);
+    } catch (error) {
+      console.log('Save Error:', error);
+      Alert.alert('Error', 'Failed to save images: ' + error);
+    } finally {
+      await Promise.all(
+        tempFiles.map(async filePath => {
+          try {
+            if (await RNFS.exists(filePath)) {
+              await RNFS.unlink(filePath);
+            }
+          } catch (cleanupError) {
+            console.log('Temp cleanup failed:', cleanupError);
+          }
+        }),
+      );
+      setSaving(false);
+    }
+  }, [captureRequest]);
+
   const handleSaveImages = async () => {
     if (!ward || !property) {
       Alert.alert('Error', 'Ward and Property numbers are required');
@@ -124,51 +164,15 @@ export default function PropertySurveyScreen({navigation}: Props) {
     }
 
     setSaving(true);
-    const tempFiles: string[] = [];
-    try {
-      let savedCount = 0;
-      
-      for (let i = 0; i < images.length; i++) {
-        if (images[i]) {
-          const viewShot = viewShotRefs[i].current;
-          if (!viewShot) {
-            throw new Error(`Image ${i + 1} is not ready to save`);
-          }
-
-          const uri = await captureRef(viewShot, {format: 'jpg', quality: 0.8});
-          const fileName = `${imageLabels[i]}.jpg`;
-          const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
-          const tempPath = uri.replace('file://', '');
-          
-          if (await RNFS.exists(destPath)) {
-            await RNFS.unlink(destPath);
-          }
-          await RNFS.copyFile(tempPath, destPath);
-          tempFiles.push(tempPath, destPath);
-          await CameraRoll.saveAsset(`file://${destPath}`, {type: 'photo', album: 'PropertySurvey'});
-          
-          console.log('Saved:', fileName);
-          savedCount++;
-        }
+    const validImages: string[] = [];
+    const validLabels: string[] = [];
+    images.forEach((img, idx) => {
+      if (img) {
+        validImages.push(img);
+        validLabels.push(imageLabels[idx]);
       }
-      Alert.alert('Success', `${savedCount} image(s) saved to PropertySurvey folder!`);
-    } catch (error) {
-      console.log('Save Error:', error);
-      Alert.alert('Error', 'Failed to save images: ' + error);
-    } finally {
-      await Promise.all(
-        tempFiles.map(async filePath => {
-          try {
-            if (await RNFS.exists(filePath)) {
-              await RNFS.unlink(filePath);
-            }
-          } catch (cleanupError) {
-            console.log('Temp cleanup failed:', cleanupError);
-          }
-        }),
-      );
-      setSaving(false);
-    }
+    });
+    setCaptureRequest({images: validImages, labels: validLabels});
   };
 
   const handleSyncImages = () => {
@@ -288,25 +292,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
               />
             </View>
 
-            {/* Offscreen watermark views for saving */}
-            {images.map((img, idx) => img ? (
-              <ViewShot
-                key={idx}
-                ref={viewShotRefs[idx]}
-                options={{format: 'jpg', quality: 0.8}}
-                style={styles.offscreen}>
-                <Image source={{uri: img}} style={styles.offscreenImg} resizeMode="cover" />
-                <View style={styles.offscreenWm}>
-                  <Text style={styles.offscreenLabel}>{imageLabels[idx]}</Text>
-                  <Text style={styles.offscreenText}>
-                    {ready
-                      ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
-                      : 'Fetching location...'}
-                  </Text>
-                  {/* <Text style={styles.offscreenText}>{`Date: ${formatDate()}  Time: ${formatTime()}`}</Text> */}
-                </View>
-              </ViewShot>
-            ) : null)}
+
 
             <Divider style={styles.divider} />
 
@@ -358,6 +344,22 @@ export default function PropertySurveyScreen({navigation}: Props) {
         </Card>
       </ScrollView>
 
+      {/* Offscreen watermark views for saving */}
+      {captureRequest && (
+        <WatermarkCaptureManager
+          images={captureRequest.images}
+          labels={captureRequest.labels}
+          location={location}
+          ready={ready}
+          onSuccess={processCapturedImages}
+          onError={(err) => {
+            setCaptureRequest(null);
+            setSaving(false);
+            Alert.alert('Error', err.toString());
+          }}
+        />
+      )}
+
       {/* <View style={styles.footer}>
         <Button
           mode="outlined"
@@ -379,6 +381,118 @@ export default function PropertySurveyScreen({navigation}: Props) {
         </Button>
       </View> */}
     </View>
+  );
+}
+
+type CaptureManagerProps = {
+  images: string[];
+  labels: string[];
+  location: any;
+  ready: boolean;
+  onSuccess: (uris: string[]) => void;
+  onError: (error: any) => void;
+};
+
+function WatermarkCaptureManager({images, labels, location, ready, onSuccess, onError}: CaptureManagerProps) {
+  const [dimensions, setDimensions] = useState<({width: number, height: number} | null)[]>(images.map(() => null));
+  const [loadedCount, setLoadedCount] = useState(0);
+  const viewRefs = useRef<(ViewShotRef | null)[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchDimensions = async () => {
+      const dims = await Promise.all(
+        images.map(img => 
+          new Promise<{width: number, height: number}>(resolve => {
+            Image.getSize(
+              img, 
+              (width, height) => resolve({width, height}),
+              () => resolve({width: 800, height: 800})
+            );
+          })
+        )
+      );
+      if (mounted) {
+        const scaledDims = dims.map(d => {
+          const MAX_DIM = 800; // Cap at 800 to prevent Android canvas clipping
+          let targetWidth, targetHeight;
+          if (d.width > d.height) {
+             targetWidth = MAX_DIM;
+             targetHeight = (d.height / d.width) * MAX_DIM;
+          } else {
+             targetHeight = MAX_DIM;
+             targetWidth = (d.width / d.height) * MAX_DIM;
+          }
+          return {width: targetWidth, height: targetHeight};
+        });
+        setDimensions(scaledDims);
+      }
+    };
+    fetchDimensions();
+    return () => { mounted = false; };
+  }, [images]);
+
+  useEffect(() => {
+    let mounted = true;
+    const dimensionsReady = dimensions.every(d => d !== null);
+    if (dimensionsReady && loadedCount === images.length && images.length > 0) {
+      const timer = setTimeout(async () => {
+        try {
+          const uris: string[] = [];
+          for (let i = 0; i < images.length; i++) {
+            if (viewRefs.current[i]) {
+              const uri = await captureRef(viewRefs.current[i], {format: 'jpg', quality: 0.9});
+              uris.push(uri);
+            } else {
+              throw new Error(`ViewShot ${i} not ready`);
+            }
+          }
+          if (mounted) onSuccess(uris);
+        } catch (e) {
+          if (mounted) onError(e);
+        }
+      }, 500);
+      return () => {
+        mounted = false;
+        clearTimeout(timer);
+      };
+    }
+    return () => { mounted = false; };
+  }, [dimensions, loadedCount, images.length, onSuccess, onError]);
+
+  return (
+    <>
+      {dimensions.map((dim, i) => {
+        if (!dim) return null;
+
+        const labelSize = Math.max(18, dim.width * 0.055);
+        const textSize = Math.max(16, dim.width * 0.048);
+
+        return (
+          <ViewShot
+            key={i}
+            ref={el => (viewRefs.current[i] = el)}
+            options={{format: 'jpg', quality: 0.9}}
+            style={[styles.offscreen, {width: dim.width, height: dim.height}]}>
+            <Image
+              source={{uri: images[i]}}
+              style={{width: dim.width, height: dim.height}}
+              resizeMode="cover"
+              onLoad={() => setLoadedCount(c => c + 1)}
+              onError={() => setLoadedCount(c => c + 1)}
+            />
+            <View style={styles.offscreenWm}>
+              <Text style={[styles.offscreenLabel, {fontSize: labelSize}]}>{labels[i]}</Text>
+              <Text style={[styles.offscreenText, {fontSize: textSize, lineHeight: textSize * 1.2}]}>
+                {ready
+                  ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
+                  : 'Fetching location...'}
+              </Text>
+            </View>
+          </ViewShot>
+        );
+      })}
+    </>
   );
 }
 
@@ -564,5 +678,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: '600',
     lineHeight: 42,
+    flexWrap: 'wrap',
   },
 });

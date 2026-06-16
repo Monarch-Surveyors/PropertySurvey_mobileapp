@@ -70,3 +70,5 @@
 86604	86793	8032203638470067	D:/PropertySurvey_mobileapp/android/app/build/intermediates/cxx/RelWithDebInfo/3y5u183g/obj/arm64-v8a/libreact_codegen_rnscreens.so	2c74cfb1ced4191d
 54407	90267	8032203673115714	CMakeFiles/appmodules.dir/D_/PropertySurvey_mobileapp/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	b934bb8226a037db
 90267	90426	8032203674802587	D:/PropertySurvey_mobileapp/android/app/build/intermediates/cxx/RelWithDebInfo/3y5u183g/obj/arm64-v8a/libappmodules.so	fad6b6851c7ddcd1
+3	26	0	D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/arm64-v8a/CMakeFiles/cmake.verify_globs	19f831f9d744fe00
+0	19	0	clean	88957595ed40f878

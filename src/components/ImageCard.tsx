@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,13 +11,13 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import {Text, Surface, TouchableRipple, Divider} from 'react-native-paper';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {ORANGE} from '../theme';
-import {LocationData} from '../hooks/useLocation';
+import { Text, Surface, TouchableRipple, Divider } from 'react-native-paper';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { ORANGE } from '../theme';
+import { LocationData } from '../hooks/useLocation';
 
 const CARD_SIZE = (Dimensions.get('window').width - 48 - 24) / 3;
-const {width: W, height: H} = Dimensions.get('window');
+const { width: W, height: H } = Dimensions.get('window');
 
 type Props = {
   label: string;
@@ -112,7 +112,7 @@ export default function ImageCard({
           <TouchableOpacity
             style={styles.deleteBtn}
             onPress={onDelete}
-            hitSlop={{top: 8, right: 8, bottom: 8, left: 8}}>
+            hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}>
             <Text style={styles.deleteIcon}>✕</Text>
           </TouchableOpacity>
         ) : null}
@@ -131,7 +131,7 @@ export default function ImageCard({
             </View>
           ) : imageUri ? (
             <Image
-              source={{uri: imageUri}}
+              source={{ uri: imageUri }}
               style={styles.image}
               resizeMode="cover"
             />
@@ -159,7 +159,7 @@ export default function ImageCard({
         statusBarTranslucent>
         <View style={styles.previewBg}>
           <Image
-            source={{uri: imageUri!}}
+            source={{ uri: imageUri! }}
             style={styles.previewImg}
             resizeMode="contain"
             onError={(e) => console.log('IMG ERROR:', e.nativeEvent.error, 'URI:', imageUri)}
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  deleteIcon: {color: '#fff', fontSize: 10, fontWeight: '700'},
+  deleteIcon: { color: '#fff', fontSize: 10, fontWeight: '700' },
   card: {
     width: CARD_SIZE,
     height: CARD_SIZE,
@@ -260,10 +260,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  placeholder: {alignItems: 'center', justifyContent: 'center', gap: 4},
-  cameraIcon: {fontSize: 28, marginBottom: 4},
-  addText: {fontSize: 10, color: '#9E9E9E', fontWeight: '500'},
-  image: {width: '100%', height: '100%'},
+  placeholder: { alignItems: 'center', justifyContent: 'center', gap: 4 },
+  cameraIcon: { fontSize: 28, marginBottom: 4 },
+  addText: { fontSize: 10, color: '#9E9E9E', fontWeight: '500' },
+  image: { width: '100%', height: '100%' },
   labelRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -277,10 +277,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flex: 1,
   },
-  required: {color: '#F44336', fontWeight: '700', fontSize: 12, marginLeft: 1},
+  required: { color: '#F44336', fontWeight: '700', fontSize: 12, marginLeft: 1 },
   // Preview
-  previewBg: {flex: 1, backgroundColor: '#000'},
-  previewImg: {width: W, height: H},
+  previewBg: { flex: 1, backgroundColor: '#000' },
+  previewImg: { width: W, height: H },
   wmBar: {
     position: 'absolute',
     bottom: 0,
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     letterSpacing: 0.5,
   },
-  wmText: {color: '#fff', fontSize: 19, fontWeight: '500', lineHeight: 20},
+  wmText: { color: '#fff', fontSize: 19, fontWeight: '500', lineHeight: 20 },
   closeBtn: {
     position: 'absolute',
     top: 16,
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  closeText: {color: '#fff', fontSize: 16, fontWeight: '700'},
+  closeText: { color: '#fff', fontSize: 16, fontWeight: '700' },
   // Sheet
   overlay: {
     flex: 1,
@@ -339,14 +339,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 12,
   },
-  sheetItem: {paddingVertical: 4},
+  sheetItem: { paddingVertical: 4 },
   sheetItemRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 14,
   },
-  sheetItemIcon: {fontSize: 22, marginRight: 16, width: 30, textAlign: 'center'},
-  sheetItemText: {fontSize: 15, color: '#424242', fontWeight: '500'},
-  cancelText: {color: '#F44336'},
+  sheetItemIcon: { fontSize: 22, marginRight: 16, width: 30, textAlign: 'center' },
+  sheetItemText: { fontSize: 15, color: '#424242', fontWeight: '500' },
+  cancelText: { color: '#F44336' },
 });
