@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { Text, Surface, TouchableRipple, Divider } from 'react-native-paper';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
+import RNFS from 'react-native-fs';
 import { ORANGE } from '../theme';
 import { LocationData } from '../hooks/useLocation';
 
@@ -40,6 +42,56 @@ export default function ImageCard({
   const [previewVisible, setPreviewVisible] = useState(false);
   const [processing, setProcessing] = useState(false);
 
+  const compressImageTo100KB = async (uri: string): Promise<string> => {
+    let quality = 80;
+    let width = 800;
+    let height = 800;
+    
+    while (quality > 5) {
+      const compressed = await ImageResizer.createResizedImage(
+        uri,
+        width,
+        height,
+        'JPEG',
+        quality,
+        0,
+        undefined,
+        false,
+        { mode: 'contain', onlyScaleDown: false }
+      );
+      
+      const stats = await RNFS.stat(compressed.uri);
+      const fileSizeKB = stats.size / 1024;
+      
+      if (fileSizeKB <= 100) {
+        return compressed.uri;
+      }
+      
+      if (quality > 50) {
+        quality -= 10;
+      } else if (quality > 20) {
+        quality -= 5;
+      } else {
+        quality -= 2;
+        width = Math.floor(width * 0.9);
+        height = Math.floor(height * 0.9);
+      }
+    }
+    
+    const compressed = await ImageResizer.createResizedImage(
+      uri,
+      width,
+      height,
+      'JPEG',
+      5,
+      0,
+      undefined,
+      false,
+      { mode: 'contain', onlyScaleDown: false }
+    );
+    return compressed.uri;
+  };
+
   const handleTakePhoto = async () => {
     setSheetVisible(false);
     try {
@@ -56,9 +108,6 @@ export default function ImageCard({
       setProcessing(true);
       const result = await launchCamera({
         mediaType: 'photo',
-        quality: 0.8,
-        maxWidth: 1600,
-        maxHeight: 1600,
         saveToPhotos: false,
       });
 
@@ -68,7 +117,8 @@ export default function ImageCard({
       }
 
       if (result.assets?.[0]?.uri) {
-        onImageSelected(result.assets[0].uri);
+        const compressedUri = await compressImageTo100KB(result.assets[0].uri);
+        onImageSelected(compressedUri);
       }
     } catch (error) {
       console.log('Camera Error:', error);
@@ -84,9 +134,6 @@ export default function ImageCard({
       setProcessing(true);
       const result = await launchImageLibrary({
         mediaType: 'photo',
-        quality: 0.8,
-        maxWidth: 1600,
-        maxHeight: 1600,
       });
 
       if (result.errorMessage) {
@@ -95,7 +142,8 @@ export default function ImageCard({
       }
 
       if (result.assets?.[0]?.uri) {
-        onImageSelected(result.assets[0].uri);
+        const compressedUri = await compressImageTo100KB(result.assets[0].uri);
+        onImageSelected(compressedUri);
       }
     } catch (error) {
       console.log('Gallery Error:', error);
