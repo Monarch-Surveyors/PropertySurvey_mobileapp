@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "D:/PropertySurvey_mobileapp/android/app/build/intermediates/cxx/Debug/3140145f/obj/x86_64/libappmodules.so"
+			"path" : "D:/PropertySurvey_mobileapp/android/app/build/intermediates/cxx/RelWithDebInfo/3y5u183g/obj/x86_64/libappmodules.so"
 		}
 	],
 	"backtrace" : 3,
@@ -109,7 +109,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D__BIONIC_NO_PAGE_SIZE_MACRO -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC"
+					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D__BIONIC_NO_PAGE_SIZE_MACRO -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O2 -g -DNDEBUG -fPIC"
 				},
 				{
 					"backtrace" : 7,
@@ -300,12 +300,12 @@
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "C:/Users/ishwa/.gradle/caches/9.3.1/transforms/2b7c23aa4547eb79508e5d3aa3f2bc7a/workspace/transformed/react-android-0.86.0-debug/prefab/modules/jsi/include"
+					"path" : "C:/Users/ishwa/.gradle/caches/9.3.1/transforms/2454197a7a7bdd22c9814cde61f3ed7f/workspace/transformed/react-android-0.86.0-release/prefab/modules/jsi/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "C:/Users/ishwa/.gradle/caches/9.3.1/transforms/2b7c23aa4547eb79508e5d3aa3f2bc7a/workspace/transformed/react-android-0.86.0-debug/prefab/modules/reactnative/include"
+					"path" : "C:/Users/ishwa/.gradle/caches/9.3.1/transforms/2454197a7a7bdd22c9814cde61f3ed7f/workspace/transformed/react-android-0.86.0-release/prefab/modules/reactnative/include"
 				}
 			],
 			"language" : "CXX",
@@ -344,11 +344,11 @@
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_RNCNetInfoSpec::@c36c96bfd5b5770618a5"
+			"id" : "react_codegen_RNImagePickerSpec::@f66ee9a2efecfb28bee4"
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_RNImagePickerSpec::@f66ee9a2efecfb28bee4"
+			"id" : "react_codegen_RNCNetInfoSpec::@c36c96bfd5b5770618a5"
 		},
 		{
 			"backtrace" : 4,
@@ -356,11 +356,11 @@
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_rnviewshot::@0ba03d237e60b9258a87"
+			"id" : "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d"
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d"
+			"id" : "react_codegen_rnviewshot::@0ba03d237e60b9258a87"
 		}
 	],
 	"id" : "appmodules::@6890427a1f51a3e7e1df",
@@ -369,17 +369,17 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-Wl,-z,max-page-size=16384 -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments",
+				"fragment" : "-Wl,-z,max-page-size=16384 -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -Wl,--gc-sections",
 				"role" : "flags"
 			},
 			{
 				"backtrace" : 4,
-				"fragment" : "D:\\PropertySurvey_mobileapp\\android\\app\\build\\intermediates\\cxx\\Debug\\3140145f\\obj\\x86_64\\libreact_codegen_safeareacontext.so",
+				"fragment" : "D:\\PropertySurvey_mobileapp\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\3y5u183g\\obj\\x86_64\\libreact_codegen_safeareacontext.so",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 4,
-				"fragment" : "D:\\PropertySurvey_mobileapp\\android\\app\\build\\intermediates\\cxx\\Debug\\3140145f\\obj\\x86_64\\libreact_codegen_rnscreens.so",
+				"fragment" : "D:\\PropertySurvey_mobileapp\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\3y5u183g\\obj\\x86_64\\libreact_codegen_rnscreens.so",
 				"role" : "libraries"
 			},
 			{
@@ -389,12 +389,12 @@
 			},
 			{
 				"backtrace" : 5,
-				"fragment" : "C:\\Users\\ishwa\\.gradle\\caches\\9.3.1\\transforms\\2b7c23aa4547eb79508e5d3aa3f2bc7a\\workspace\\transformed\\react-android-0.86.0-debug\\prefab\\modules\\jsi\\libs\\android.x86_64\\libjsi.so",
+				"fragment" : "C:\\Users\\ishwa\\.gradle\\caches\\9.3.1\\transforms\\2454197a7a7bdd22c9814cde61f3ed7f\\workspace\\transformed\\react-android-0.86.0-release\\prefab\\modules\\jsi\\libs\\android.x86_64\\libjsi.so",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 5,
-				"fragment" : "C:\\Users\\ishwa\\.gradle\\caches\\9.3.1\\transforms\\2b7c23aa4547eb79508e5d3aa3f2bc7a\\workspace\\transformed\\react-android-0.86.0-debug\\prefab\\modules\\reactnative\\libs\\android.x86_64\\libreactnative.so",
+				"fragment" : "C:\\Users\\ishwa\\.gradle\\caches\\9.3.1\\transforms\\2454197a7a7bdd22c9814cde61f3ed7f\\workspace\\transformed\\react-android-0.86.0-release\\prefab\\modules\\reactnative\\libs\\android.x86_64\\libreactnative.so",
 				"role" : "libraries"
 			},
 			{
@@ -497,289 +497,289 @@
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/RNImageResizerSpec-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/RNImageResizerSpec-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/CMakeFiles/react_codegen_RNImageResizerSpec.dir/react/renderer/components/RNImageResizerSpec/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/AsyncStorageSpec-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/AsyncStorageSpec-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/react/renderer/components/rncameraroll/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/rncameraroll-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/CMakeFiles/react_codegen_rncameraroll.dir/rncameraroll-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/RNCNetInfoSpec-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/RNCNetInfoSpec-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir/react/renderer/components/RNCNetInfoSpec/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/RNImagePickerSpec-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/RNImagePickerSpec-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir/react/renderer/components/RNImagePickerSpec/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/RNVectorIconsSpec-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/RNVectorIconsSpec-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/ComponentDescriptors.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/ComponentDescriptors.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/EventEmitters.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/EventEmitters.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/Props.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/Props.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/ShadowNodes.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/ShadowNodes.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/States.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/react/renderer/components/rnviewshot/States.cpp.o",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 4,
 			"isGenerated" : true,
-			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/rnviewshot-generated.cpp.o",
+			"path" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rnviewshot_autolinked_build/CMakeFiles/react_codegen_rnviewshot.dir/rnviewshot-generated.cpp.o",
 			"sourceGroupIndex" : 1
 		}
 	],

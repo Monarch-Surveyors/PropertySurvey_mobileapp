@@ -7,8 +7,9 @@ import {
   Image,
   PermissionsAndroid,
   Platform,
+  Modal,
 } from 'react-native';
-import {Card, Text, Button, Divider, TextInput, IconButton} from 'react-native-paper';
+import {Card, Text, Button, Divider, TextInput, IconButton, ProgressBar} from 'react-native-paper';
 import Header from '../components/Header';
 import CustomDropdown from '../components/CustomDropdown';
 import ImageCard from '../components/ImageCard';
@@ -18,6 +19,7 @@ import ViewShot, {captureRef, type ViewShotRef} from 'react-native-view-shot';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import RNFS from 'react-native-fs';
 import {useLocation} from '../hooks/useLocation';
+import {ImageSyncService, type ImageSyncStatus, SERVER_ALBUM} from '../services/imageSync';
 
 export default function PropertySurveyScreen() {
   const {logout, isOnline, userData} = useAuth();
@@ -28,8 +30,23 @@ export default function PropertySurveyScreen() {
   const [saving, setSaving] = useState(false);
   const [captureRequest, setCaptureRequest] = useState<{images: string[], labels: string[]} | null>(null);
   const {location, ready} = useLocation();
+  const [syncing, setSyncing] = useState(false);
+  const [syncProgress, setSyncProgress] = useState({current: 0, total: 0, fileName: ''});
+  const [pendingCount, setPendingCount] = useState(0);
+  const [syncedCount, setSyncedCount] = useState(0);
 
   const WARD_ITEMS = Array.from({length: 10}, (_, i) => `${i + 1}`);
+
+  const loadSyncCounts = useCallback(async () => {
+    const pending = await ImageSyncService.getPendingImages();
+    const synced = await ImageSyncService.getSyncedImages();
+    setPendingCount(pending.length);
+    setSyncedCount(synced.length);
+  }, []);
+
+  useEffect(() => {
+    loadSyncCounts();
+  }, [loadSyncCounts]);
 
   const handleLogout = () => {
     if (!isOnline) {
@@ -93,8 +110,8 @@ export default function PropertySurveyScreen() {
       );
       return result === PermissionsAndroid.RESULTS.GRANTED;
     } else if (api >= 29) {
-      // Android 10–12 → READ_EXTERNAL_STORAGE
-      const result = await PermissionsAndroid.request(
+      // Android 10–12 → READ_EXTERNAL_STORAGE + WRITE_EXTERNAL_STORAGE for album creation
+      const readResult = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         {
           title: 'Storage Permission Required',
@@ -103,7 +120,17 @@ export default function PropertySurveyScreen() {
           buttonNegative: 'Deny',
         },
       );
-      return result === PermissionsAndroid.RESULTS.GRANTED;
+      const writeResult = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission Required',
+          message: 'This app needs access to create albums and save images.',
+          buttonPositive: 'Allow',
+          buttonNegative: 'Deny',
+        },
+      );
+      return readResult === PermissionsAndroid.RESULTS.GRANTED && 
+             writeResult === PermissionsAndroid.RESULTS.GRANTED;
     } else {
       // Android 9 and below → WRITE_EXTERNAL_STORAGE
       const result = await PermissionsAndroid.request(
@@ -141,9 +168,13 @@ export default function PropertySurveyScreen() {
         tempFiles.push(tempPath, destPath);
         await CameraRoll.saveAsset(`file://${destPath}`, {type: 'photo', album: 'PropertySurvey'});
         
+        // Add to sync queue
+        await ImageSyncService.addPendingImage(destPath, fileName);
+        
         console.log('Saved:', fileName);
         savedCount++;
       }
+      await loadSyncCounts();
       Alert.alert('Success', `${savedCount} image(s) saved to PropertySurvey folder!`);
     } catch (error) {
       console.log('Save Error:', error);
@@ -197,8 +228,35 @@ export default function PropertySurveyScreen() {
     setCaptureRequest({images: validImages, labels: validLabels});
   };
 
-  const handleSyncImages = () => {
-    Alert.alert('Sync', 'All images synced with server!');
+  const handleSyncImages = async () => {
+    if (!isOnline) {
+      Alert.alert('Offline', 'Cannot sync images while offline. Please connect to the internet.');
+      return;
+    }
+
+    const pending = await ImageSyncService.getPendingImages();
+    if (pending.length === 0) {
+      Alert.alert('No Images', 'No pending images to sync.');
+      return;
+    }
+
+    setSyncing(true);
+    setSyncProgress({current: 0, total: pending.length, fileName: ''});
+
+    await ImageSyncService.syncAllImages(
+      (current, total, fileName) => {
+        setSyncProgress({current, total, fileName});
+      },
+      (success, failed) => {
+        setSyncing(false);
+        loadSyncCounts();
+        if (failed === 0) {
+          Alert.alert('Success', `${success} image(s) synced successfully!\n\nSynced images are now in "${SERVER_ALBUM}" folder.`);
+        } else {
+          Alert.alert('Sync Complete', `Success: ${success}\nFailed: ${failed}\n\nFailed images will retry on next sync.`);
+        }
+      }
+    );
   };
 
   const handleClearAll = () => {
@@ -367,6 +425,18 @@ export default function PropertySurveyScreen() {
               </Button>
             </View>
 
+            {/* Sync Stats */}
+            <View style={styles.syncStats}>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>📁 Offline Images:</Text>
+                <Text style={styles.statValue}>{pendingCount}</Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>✅ Synced Images:</Text>
+                <Text style={styles.statValue}>{syncedCount}</Text>
+              </View>
+            </View>
+
             {/* Sync Button */}
             <View style={styles.syncWrapper}>
               <Button
@@ -376,14 +446,35 @@ export default function PropertySurveyScreen() {
                 style={styles.syncButton}
                 contentStyle={styles.syncButtonContent}
                 labelStyle={styles.syncButtonLabel}
-                icon="cloud-upload">
-                SYNC ALL IMAGES WITH SERVER
+                icon="cloud-upload"
+                disabled={!isOnline || syncing || pendingCount === 0}>
+                {syncing ? 'SYNCING...' : 'SYNC ALL IMAGES WITH SERVER'}
               </Button>
             </View>
 
           </Card.Content>
         </Card>
       </ScrollView>
+
+      {/* Sync Progress Modal */}
+      <Modal visible={syncing} transparent animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Syncing Images</Text>
+            <Text style={styles.modalText}>
+              {syncProgress.current} of {syncProgress.total}
+            </Text>
+            <Text style={styles.modalFileName} numberOfLines={1}>
+              {syncProgress.fileName}
+            </Text>
+            <ProgressBar
+              progress={syncProgress.total > 0 ? syncProgress.current / syncProgress.total : 0}
+              color={ORANGE}
+              style={styles.progressBar}
+            />
+          </View>
+        </View>
+      </Modal>
 
       {/* Offscreen watermark views for saving */}
       {captureRequest && (
@@ -733,5 +824,61 @@ const styles = StyleSheet.create({
     color: '#856404',
     fontSize: 13,
     fontWeight: '600',
+  },
+  syncStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 12,
+    paddingVertical: 12,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 8,
+  },
+  statItem: {
+    alignItems: 'center',
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#757575',
+    marginBottom: 4,
+  },
+  statValue: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: ORANGE,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 24,
+    width: '80%',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#212121',
+    marginBottom: 16,
+  },
+  modalText: {
+    fontSize: 15,
+    color: '#757575',
+    marginBottom: 8,
+  },
+  modalFileName: {
+    fontSize: 13,
+    color: ORANGE,
+    marginBottom: 16,
+    maxWidth: '100%',
+  },
+  progressBar: {
+    width: '100%',
+    height: 8,
+    borderRadius: 4,
   },
 });

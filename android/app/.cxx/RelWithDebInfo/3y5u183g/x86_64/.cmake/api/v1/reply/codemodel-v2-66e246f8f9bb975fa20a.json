@@ -222,7 +222,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "appmodules::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-appmodules-RelWithDebInfo-545a9f4c720b11728d5d.json",
+					"jsonFile" : "target-appmodules-RelWithDebInfo-71041c15b7894fdea573.json",
 					"name" : "appmodules",
 					"projectIndex" : 0
 				},
@@ -278,7 +278,7 @@
 				{
 					"directoryIndex" : 8,
 					"id" : "react_codegen_rnscreens::@25bcbd507e98d3a854ad",
-					"jsonFile" : "target-react_codegen_rnscreens-RelWithDebInfo-9222160511ca4dd648e1.json",
+					"jsonFile" : "target-react_codegen_rnscreens-RelWithDebInfo-921092b0d35054ca9ea8.json",
 					"name" : "react_codegen_rnscreens",
 					"projectIndex" : 0
 				},
@@ -292,7 +292,7 @@
 				{
 					"directoryIndex" : 7,
 					"id" : "react_codegen_safeareacontext::@7984cd80db47aa7b952a",
-					"jsonFile" : "target-react_codegen_safeareacontext-RelWithDebInfo-2551d3951f69681df9a3.json",
+					"jsonFile" : "target-react_codegen_safeareacontext-RelWithDebInfo-93f67246ec12ef146936.json",
 					"name" : "react_codegen_safeareacontext",
 					"projectIndex" : 0
 				}
@@ -302,7 +302,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86",
+		"build" : "D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64",
 		"source" : "D:/PropertySurvey_mobileapp/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup"
 	},
 	"version" : 

@@ -222,77 +222,77 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "appmodules::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-appmodules-Debug-675d5b403b2b3eb016ab.json",
+					"jsonFile" : "target-appmodules-Debug-ce062e98711527dcfbb8.json",
 					"name" : "appmodules",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "react_codegen_AsyncStorageSpec::@15af80695a6281ecf900",
-					"jsonFile" : "target-react_codegen_AsyncStorageSpec-Debug-de15a8338a50f5de7e75.json",
+					"jsonFile" : "target-react_codegen_AsyncStorageSpec-Debug-71f4e9051db524648146.json",
 					"name" : "react_codegen_AsyncStorageSpec",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "react_codegen_RNCNetInfoSpec::@c36c96bfd5b5770618a5",
-					"jsonFile" : "target-react_codegen_RNCNetInfoSpec-Debug-506363c9a9ee645bc012.json",
+					"jsonFile" : "target-react_codegen_RNCNetInfoSpec-Debug-6d91b2a9dceca88a4e38.json",
 					"name" : "react_codegen_RNCNetInfoSpec",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 5,
 					"id" : "react_codegen_RNImagePickerSpec::@f66ee9a2efecfb28bee4",
-					"jsonFile" : "target-react_codegen_RNImagePickerSpec-Debug-d0a9d36436b36efb1c24.json",
+					"jsonFile" : "target-react_codegen_RNImagePickerSpec-Debug-304371992c2a8052adb7.json",
 					"name" : "react_codegen_RNImagePickerSpec",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "react_codegen_RNImageResizerSpec::@781b039b46879c00d842",
-					"jsonFile" : "target-react_codegen_RNImageResizerSpec-Debug-436c77f9d5da14bc1ed7.json",
+					"jsonFile" : "target-react_codegen_RNImageResizerSpec-Debug-06124a5fe102d2b444ba.json",
 					"name" : "react_codegen_RNImageResizerSpec",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 6,
 					"id" : "react_codegen_RNPermissionsSpec::@7ad697819b753921c957",
-					"jsonFile" : "target-react_codegen_RNPermissionsSpec-Debug-538eba35e29aa703ef00.json",
+					"jsonFile" : "target-react_codegen_RNPermissionsSpec-Debug-61838acce8153651fc98.json",
 					"name" : "react_codegen_RNPermissionsSpec",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 9,
 					"id" : "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d",
-					"jsonFile" : "target-react_codegen_RNVectorIconsSpec-Debug-5e805017bdba1340e6e9.json",
+					"jsonFile" : "target-react_codegen_RNVectorIconsSpec-Debug-e05cb8a6d214a71a94bf.json",
 					"name" : "react_codegen_RNVectorIconsSpec",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "react_codegen_rncameraroll::@60139d220751b3dabc04",
-					"jsonFile" : "target-react_codegen_rncameraroll-Debug-b04d7d51427b4e2a939a.json",
+					"jsonFile" : "target-react_codegen_rncameraroll-Debug-051aa8970654883c5b36.json",
 					"name" : "react_codegen_rncameraroll",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 8,
 					"id" : "react_codegen_rnscreens::@25bcbd507e98d3a854ad",
-					"jsonFile" : "target-react_codegen_rnscreens-Debug-799c644aaf7bcc03a861.json",
+					"jsonFile" : "target-react_codegen_rnscreens-Debug-a13a82266c61780e6a02.json",
 					"name" : "react_codegen_rnscreens",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 10,
 					"id" : "react_codegen_rnviewshot::@0ba03d237e60b9258a87",
-					"jsonFile" : "target-react_codegen_rnviewshot-Debug-8d86de86e6159ba2ab72.json",
+					"jsonFile" : "target-react_codegen_rnviewshot-Debug-1c640300cd4fa3a0558b.json",
 					"name" : "react_codegen_rnviewshot",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 7,
 					"id" : "react_codegen_safeareacontext::@7984cd80db47aa7b952a",
-					"jsonFile" : "target-react_codegen_safeareacontext-Debug-b92da339ee771e0b40d5.json",
+					"jsonFile" : "target-react_codegen_safeareacontext-Debug-7defdf1ab1a8dae8af44.json",
 					"name" : "react_codegen_safeareacontext",
 					"projectIndex" : 0
 				}
@@ -302,7 +302,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/arm64-v8a",
+		"build" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a",
 		"source" : "D:/PropertySurvey_mobileapp/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup"
 	},
 	"version" : 

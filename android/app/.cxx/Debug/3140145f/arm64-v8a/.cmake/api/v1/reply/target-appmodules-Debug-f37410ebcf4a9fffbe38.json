@@ -328,11 +328,11 @@
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_safeareacontext::@7984cd80db47aa7b952a"
+			"id" : "react_codegen_AsyncStorageSpec::@15af80695a6281ecf900"
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_RNPermissionsSpec::@7ad697819b753921c957"
+			"id" : "react_codegen_rncameraroll::@60139d220751b3dabc04"
 		},
 		{
 			"backtrace" : 4,
@@ -340,7 +340,15 @@
 		},
 		{
 			"backtrace" : 4,
+			"id" : "react_codegen_safeareacontext::@7984cd80db47aa7b952a"
+		},
+		{
+			"backtrace" : 4,
 			"id" : "react_codegen_RNCNetInfoSpec::@c36c96bfd5b5770618a5"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "react_codegen_RNPermissionsSpec::@7ad697819b753921c957"
 		},
 		{
 			"backtrace" : 4,
@@ -348,19 +356,11 @@
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_rnviewshot::@0ba03d237e60b9258a87"
-		},
-		{
-			"backtrace" : 4,
 			"id" : "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d"
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_AsyncStorageSpec::@15af80695a6281ecf900"
-		},
-		{
-			"backtrace" : 4,
-			"id" : "react_codegen_rncameraroll::@60139d220751b3dabc04"
+			"id" : "react_codegen_rnviewshot::@0ba03d237e60b9258a87"
 		}
 	],
 	"id" : "appmodules::@6890427a1f51a3e7e1df",
