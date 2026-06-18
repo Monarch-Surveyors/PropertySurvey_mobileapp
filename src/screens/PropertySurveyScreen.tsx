@@ -223,7 +223,20 @@ export default function PropertySurveyScreen() {
 
   return (
     <View style={styles.container}>
-      <Header title="Property Survey" onBack={handleLogout} />
+      <Header 
+        title="Property Survey" 
+        rightButton={
+          <Button 
+            mode="contained" 
+            onPress={handleLogout}
+            buttonColor={ORANGE}
+            compact
+            labelStyle={{fontSize: 11, fontWeight: '700'}}
+          >
+            LOGOUT
+          </Button>
+        }
+      />
 
       {!isOnline && (
         <View style={styles.offlineBanner}>
@@ -391,12 +404,12 @@ export default function PropertySurveyScreen() {
       <View style={styles.footer}>
         <Button
           mode="outlined"
-          onPress={handleLogout}
+          onPress={() => Alert.alert('Preview', 'Preview functionality coming soon.')}
           style={styles.footerBtn}
           contentStyle={styles.footerBtnContent}
           textColor={ORANGE}
           labelStyle={styles.footerBtnLabel}>
-          LOGOUT
+          ◀  PREVIEW
         </Button>
         <Button
           mode="contained"
