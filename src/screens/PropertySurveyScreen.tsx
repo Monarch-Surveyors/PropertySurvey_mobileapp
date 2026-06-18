@@ -21,6 +21,19 @@ import RNFS from 'react-native-fs';
 import {useLocation} from '../hooks/useLocation';
 import {ImageSyncService, type ImageSyncStatus, SERVER_ALBUM} from '../services/imageSync';
 
+// Dummy property list
+const DUMMY_PROPERTIES = [
+  { ward: '1', property: '1', partition: '1' },
+  { ward: '1', property: '1', partition: '2' },
+  { ward: '1', property: '2', partition: '1' },
+  { ward: '1', property: '3', partition: '1' },
+  { ward: '1', property: '3', partition: '2' },
+  { ward: '2', property: '1', partition: '1' },
+  { ward: '2', property: '2', partition: '1' },
+  { ward: '2', property: '2', partition: '2' },
+  { ward: '2', property: '2', partition: '3' },
+];
+
 export default function PropertySurveyScreen() {
   const {logout, isOnline, userData} = useAuth();
   const [ward, setWard] = useState('');
@@ -279,6 +292,47 @@ export default function PropertySurveyScreen() {
     );
   };
 
+  const getCurrentIndex = () => {
+    if (!ward || !property) return -1;
+    return DUMMY_PROPERTIES.findIndex(
+      p => p.ward === ward && p.property === property && p.partition === (partition || '1')
+    );
+  };
+
+  const handleNext = () => {
+    const currentIndex = getCurrentIndex();
+    if (currentIndex === -1) {
+      Alert.alert('Info', 'Please select Ward and Property to navigate.');
+      return;
+    }
+    if (currentIndex >= DUMMY_PROPERTIES.length - 1) {
+      Alert.alert('Info', 'You are on the last property.');
+      return;
+    }
+    const next = DUMMY_PROPERTIES[currentIndex + 1];
+    setWard(next.ward);
+    setProperty(next.property);
+    setPartition(next.partition);
+    setImages([null, null, null]);
+  };
+
+  const handlePreview = () => {
+    const currentIndex = getCurrentIndex();
+    if (currentIndex === -1) {
+      Alert.alert('Info', 'Please select Ward and Property to navigate.');
+      return;
+    }
+    if (currentIndex <= 0) {
+      Alert.alert('Info', 'You are on the first property.');
+      return;
+    }
+    const prev = DUMMY_PROPERTIES[currentIndex - 1];
+    setWard(prev.ward);
+    setProperty(prev.property);
+    setPartition(prev.partition);
+    setImages([null, null, null]);
+  };
+
   return (
     <View style={styles.container}>
       <Header 
@@ -495,7 +549,7 @@ export default function PropertySurveyScreen() {
       <View style={styles.footer}>
         <Button
           mode="outlined"
-          onPress={() => Alert.alert('Preview', 'Preview functionality coming soon.')}
+          onPress={handlePreview}
           style={styles.footerBtn}
           contentStyle={styles.footerBtnContent}
           textColor={ORANGE}
@@ -504,7 +558,7 @@ export default function PropertySurveyScreen() {
         </Button>
         <Button
           mode="contained"
-          onPress={() => Alert.alert('Navigation', 'No next screen defined.')}
+          onPress={handleNext}
           style={styles.footerBtn}
           contentStyle={styles.footerBtnContent}
           buttonColor={ORANGE}
