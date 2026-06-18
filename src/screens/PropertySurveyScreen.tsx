@@ -360,7 +360,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
         />
       )}
 
-      {/* <View style={styles.footer}>
+      <View style={styles.footer}>
         <Button
           mode="outlined"
           onPress={() => navigation.goBack()}
@@ -368,7 +368,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
           contentStyle={styles.footerBtnContent}
           textColor={ORANGE}
           labelStyle={styles.footerBtnLabel}>
-          ◀  PREVIOUS
+          ◀  PREVIEW
         </Button>
         <Button
           mode="contained"
@@ -379,7 +379,7 @@ export default function PropertySurveyScreen({navigation}: Props) {
           labelStyle={styles.footerBtnLabel}>
           NEXT  ▶
         </Button>
-      </View> */}
+      </View>
     </View>
   );
 }

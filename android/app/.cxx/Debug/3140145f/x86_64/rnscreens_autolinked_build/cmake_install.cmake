@@ -1,4 +1,4 @@
-# Install script for directory: D:/PROJECTS/PropertySurvey_mobileapp/node_modules/react-native-screens/android/src/main/jni
+# Install script for directory: D:/PropertySurvey_mobileapp/node_modules/react-native-screens/android/src/main/jni
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

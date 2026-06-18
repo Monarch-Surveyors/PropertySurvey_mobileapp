@@ -1,4 +1,4 @@
-# Install script for directory: D:/PROJECTS/PropertySurvey_mobileapp/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni
+# Install script for directory: D:/PropertySurvey_mobileapp/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

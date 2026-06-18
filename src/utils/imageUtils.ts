@@ -39,7 +39,7 @@ export const compressAndSaveImage = async (imageUri: string): Promise<string> =>
       800, // max width
       600, // max height
       'JPEG',
-      60, // quality (0-100)
+      30, // quality (0-100)
       0, // rotation
       undefined, // outputPath
       false, // keep meta
