@@ -44,7 +44,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImageResizerSpec_autolinked_build/cmake_install.cmake")
+  include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/AsyncStorageSpec_autolinked_build/cmake_install.cmake")
   include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/rncameraroll_autolinked_build/cmake_install.cmake")
+  include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNCNetInfoSpec_autolinked_build/cmake_install.cmake")
   include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNImagePickerSpec_autolinked_build/cmake_install.cmake")
   include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/RNPermissionsSpec_autolinked_build/cmake_install.cmake")
   include("D:/PropertySurvey_mobileapp/android/app/.cxx/RelWithDebInfo/3y5u183g/x86_64/safeareacontext_autolinked_build/cmake_install.cmake")

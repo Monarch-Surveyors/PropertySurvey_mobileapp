@@ -9,57 +9,53 @@ import {
   Alert,
 } from 'react-native';
 import {Card, Text, TextInput, Button} from 'react-native-paper';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../navigation/AppNavigator';
+import {useAuth} from '../context/AuthContext';
 import {ORANGE} from '../theme';
-import {pickImageFromGallery, compressAndSaveImage} from '../utils/imageUtils';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
-};
-
-// Dummy device registration states: 'approved' | 'pending' | 'rejected'
-const DEVICE_STATUS: 'approved' | 'pending' | 'rejected' = 'approved';
-
-const statusConfig = {
-  approved: {
-    label: 'Device Approved',
-    icon: 'shield-check',
-    bg: '#E8F5E9',
-    text: '#2E7D32',
-    border: '#A5D6A7',
-  },
-  pending: {
-    label: 'Approval Pending',
-    icon: 'shield-alert',
-    bg: '#FFF8E1',
-    text: '#F57F17',
-    border: '#FFE082',
-  },
-  rejected: {
-    label: 'Device Rejected',
-    icon: 'shield-off',
-    bg: '#FFEBEE',
-    text: '#C62828',
-    border: '#EF9A9A',
-  },
-};
-
-export default function LoginScreen({navigation}: Props) {
+export default function LoginScreen() {
+  const {login, isOnline} = useAuth();
   const [councilId, setCouncilId] = useState('');
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
 
-  const handleImageCapture = async () => {
+  const [loading, setLoading] = useState(false);
+
+  const DEVICE_STATUS: 'approved' | 'pending' | 'rejected' = 'approved';
+
+  const statusConfig = {
+    approved: {
+      label: 'Device Approved',
+      bg: '#E8F5E9',
+      text: '#2E7D32',
+      border: '#A5D6A7',
+    },
+    pending: {
+      label: 'Approval Pending',
+      bg: '#FFF8E1',
+      text: '#F57F17',
+      border: '#FFE082',
+    },
+    rejected: {
+      label: 'Device Rejected',
+      bg: '#FFEBEE',
+      text: '#C62828',
+      border: '#EF9A9A',
+    },
+  };
+
+  const handleLogin = async () => {
+    if (!councilId || !userId || !password) {
+      Alert.alert('Error', 'Please fill all fields');
+      return;
+    }
+    setLoading(true);
     try {
-      const imageUri = await pickImageFromGallery();
-      if (imageUri) {
-        const savedPath = await compressAndSaveImage(imageUri);
-        Alert.alert('Success', 'Image saved successfully!');
-      }
+      await login(councilId, userId, password);
     } catch (error) {
-      Alert.alert('Error', 'Failed to save image');
+      Alert.alert('Error', 'Login failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,6 +91,14 @@ export default function LoginScreen({navigation}: Props) {
             <Text variant="bodySmall" style={styles.cardSubtitle}>
               Enter your credentials to continue
             </Text>
+
+            {/* ── Network Status ── */}
+            {!isOnline && (
+              <View style={styles.offlineBanner}>
+                <Text style={styles.offlineIcon}>📡</Text>
+                <Text style={styles.offlineText}>You are offline</Text>
+              </View>
+            )}
 
             {/* ── Device Registration Status ── */}
             <View
@@ -185,12 +189,13 @@ export default function LoginScreen({navigation}: Props) {
             {/* ── Login Button ── */}
             <Button
               mode="contained"
-              onPress={() => navigation.navigate('PropertySurvey')}
+              onPress={handleLogin}
+              loading={loading}
+              disabled={isRestricted || loading}
               style={styles.loginButton}
               contentStyle={styles.loginButtonContent}
               labelStyle={styles.loginButtonLabel}
-              buttonColor={isRestricted ? '#BDBDBD' : ORANGE}
-              disabled={isRestricted}>
+              buttonColor={isRestricted ? '#BDBDBD' : ORANGE}>
               LOGIN
             </Button>
 
@@ -236,7 +241,7 @@ const styles = StyleSheet.create({
   },
   logoWrapper: {
     alignItems: 'center',
-    marginTop: 48,
+    marginTop: 40,
     marginBottom: 24,
   },
   logoCircle: {
@@ -398,5 +403,26 @@ const styles = StyleSheet.create({
   versionText: {
     color: '#BDBDBD',
     fontSize: 12,
+  },
+  offlineBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF3CD',
+    borderWidth: 1,
+    borderColor: '#FFE69C',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginBottom: 16,
+  },
+  offlineIcon: {
+    fontSize: 16,
+    marginRight: 8,
+  },
+  offlineText: {
+    color: '#856404',
+    fontSize: 13,
+    fontWeight: '600',
   },
 });

@@ -36,6 +36,30 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/CMakeFiles/cmake.verify_globs")
 endif()
 
+# react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/AsyncStorageSpec-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/AsyncStorageSpec/*.cpp")
+set(OLD_GLOB
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/AsyncStorageSpec/ComponentDescriptors.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/AsyncStorageSpec/EventEmitters.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/AsyncStorageSpec/Props.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/AsyncStorageSpec/ShadowNodes.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/react/renderer/components/AsyncStorageSpec/States.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
 # react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/@react-native-camera-roll/camera-roll/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/@react-native-camera-roll/camera-roll/android/build/generated/source/codegen/jni/*.cpp")
 set(OLD_GLOB
@@ -54,6 +78,30 @@ set(OLD_GLOB
   "D:/PropertySurvey_mobileapp/node_modules/@react-native-camera-roll/camera-roll/android/build/generated/source/codegen/jni/react/renderer/components/rncameraroll/Props.cpp"
   "D:/PropertySurvey_mobileapp/node_modules/@react-native-camera-roll/camera-roll/android/build/generated/source/codegen/jni/react/renderer/components/rncameraroll/ShadowNodes.cpp"
   "D:/PropertySurvey_mobileapp/node_modules/@react-native-camera-roll/camera-roll/android/build/generated/source/codegen/jni/react/renderer/components/rncameraroll/States.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/RNCNetInfoSpec-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/react/renderer/components/RNCNetInfoSpec/*.cpp")
+set(OLD_GLOB
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/react/renderer/components/RNCNetInfoSpec/ComponentDescriptors.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/react/renderer/components/RNCNetInfoSpec/EventEmitters.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/react/renderer/components/RNCNetInfoSpec/Props.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/react/renderer/components/RNCNetInfoSpec/ShadowNodes.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/react/renderer/components/RNCNetInfoSpec/States.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

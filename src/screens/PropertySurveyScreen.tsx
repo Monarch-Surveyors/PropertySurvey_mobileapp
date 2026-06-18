@@ -8,25 +8,19 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import {Card, Text, Button, Divider, TextInput} from 'react-native-paper';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../navigation/AppNavigator';
+import {Card, Text, Button, Divider, TextInput, IconButton} from 'react-native-paper';
 import Header from '../components/Header';
 import CustomDropdown from '../components/CustomDropdown';
 import ImageCard from '../components/ImageCard';
+import {useAuth} from '../context/AuthContext';
 import {ORANGE} from '../theme';
 import ViewShot, {captureRef, type ViewShotRef} from 'react-native-view-shot';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import RNFS from 'react-native-fs';
 import {useLocation} from '../hooks/useLocation';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'PropertySurvey'>;
-};
-
-const WARD_ITEMS = Array.from({length: 10}, (_, i) => `${i + 1}`);
-
-export default function PropertySurveyScreen({navigation}: Props) {
+export default function PropertySurveyScreen() {
+  const {logout, isOnline, userData} = useAuth();
   const [ward, setWard] = useState('');
   const [property, setProperty] = useState('');
   const [partition, setPartition] = useState('');
@@ -34,6 +28,34 @@ export default function PropertySurveyScreen({navigation}: Props) {
   const [saving, setSaving] = useState(false);
   const [captureRequest, setCaptureRequest] = useState<{images: string[], labels: string[]} | null>(null);
   const {location, ready} = useLocation();
+
+  const WARD_ITEMS = Array.from({length: 10}, (_, i) => `${i + 1}`);
+
+  const handleLogout = () => {
+    if (!isOnline) {
+      Alert.alert(
+        'Offline Mode',
+        'You cannot logout while offline. Please connect to the internet to logout.',
+        [{text: 'OK'}]
+      );
+      return;
+    }
+    
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: () => {
+            logout();
+          },
+        },
+      ]
+    );
+  };
 
   const imageLabels = useMemo(() => {
     if (!ward || !property) return ['Property Image-A', 'Property Image-B', 'Property Image-C'];
@@ -201,7 +223,13 @@ export default function PropertySurveyScreen({navigation}: Props) {
 
   return (
     <View style={styles.container}>
-      <Header title="Property Survey" onBack={() => navigation.goBack()} />
+      <Header title="Property Survey" onBack={handleLogout} />
+
+      {!isOnline && (
+        <View style={styles.offlineBanner}>
+          <Text style={styles.offlineText}>📡 Offline Mode - Data will sync when online</Text>
+        </View>
+      )}
 
       <ScrollView
         contentContainerStyle={styles.scroll}
@@ -363,12 +391,12 @@ export default function PropertySurveyScreen({navigation}: Props) {
       <View style={styles.footer}>
         <Button
           mode="outlined"
-          onPress={() => navigation.goBack()}
+          onPress={handleLogout}
           style={styles.footerBtn}
           contentStyle={styles.footerBtnContent}
           textColor={ORANGE}
           labelStyle={styles.footerBtnLabel}>
-          ◀  PREVIEW
+          LOGOUT
         </Button>
         <Button
           mode="contained"
@@ -679,5 +707,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 42,
     flexWrap: 'wrap',
+  },
+  offlineBanner: {
+    backgroundColor: '#FFF3CD',
+    borderBottomWidth: 1,
+    borderBottomColor: '#FFE69C',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+  },
+  offlineText: {
+    color: '#856404',
+    fontSize: 13,
+    fontWeight: '600',
   },
 });

@@ -33,21 +33,36 @@ export const compressAndSaveImage = async (imageUri: string): Promise<string> =>
     const imageName = await getNextImageName();
     const destPath = `${IMAGES_FOLDER}/${imageName}`;
     
-    // Compress image to approximately 100KB
-    const compressedImage = await ImageResizer.createResizedImage(
-      imageUri,
-      800, // max width
-      600, // max height
-      'JPEG',
-      30, // quality (0-100)
-      0, // rotation
-      undefined, // outputPath
-      false, // keep meta
-      {
-        mode: 'contain',
-        onlyScaleDown: true,
+    // Compress image to exactly 100KB or less
+    let quality = 20;
+    let compressedImage;
+    
+    do {
+      compressedImage = await ImageResizer.createResizedImage(
+        imageUri,
+        500, // max width
+        350, // max height
+        'JPEG',
+        quality,
+        0,
+        undefined,
+        false,
+        {
+          mode: 'contain',
+          onlyScaleDown: true,
+        }
+      );
+      
+      // Check file size
+      const stats = await RNFS.stat(compressedImage.uri);
+      const fileSizeKB = stats.size / 1024;
+      
+      if (fileSizeKB <= 100) {
+        break;
       }
-    );
+      
+      quality -= 5;
+    } while (quality > 5);
     
     // Copy compressed image to destination
     await RNFS.copyFile(compressedImage.uri, destPath);

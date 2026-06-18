@@ -1,43 +1,45 @@
-C/C++ Structured Log—
-”
-‘D:\PROJECTS\PropertySurvey_mobileapp\node_modules\@react-native-camera-roll\camera-roll\android\build\generated\source\codegen\jni\CMakeLists.txtC
-A
-?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	†”šÌí3ö î²ÚÊí3‹
-ˆ
-…D:\PROJECTS\PropertySurvey_mobileapp\node_modules\react-native-image-picker\android\build\generated\source\codegen\jni\CMakeLists.txt	†”šÌí3” Ñ¶ÚÊí3Š
-‡
-„D:\PROJECTS\PropertySurvey_mobileapp\node_modules\react-native-permissions\android\build\generated\source\codegen\jni\CMakeLists.txt	†”šÌí3” µºÚÊí3x
-v
-tD:\PROJECTS\PropertySurvey_mobileapp\node_modules\react-native-safe-area-context\android\src\main\jni\CMakeLists.txt	†”šÌí3Ç ÒÃ‘±ë3n
-l
-jD:\PROJECTS\PropertySurvey_mobileapp\node_modules\react-native-screens\android\src\main\jni\CMakeLists.txt	†”šÌí3€ ½‰’±ë3‹
-ˆ
-…D:\PROJECTS\PropertySurvey_mobileapp\node_modules\react-native-vector-icons\android\build\generated\source\codegen\jni\CMakeLists.txt	†”šÌí3” ÎÆÚÊí3ˆ
-…
-‚D:\PROJECTS\PropertySurvey_mobileapp\node_modules\react-native-view-shot\android\build\generated\source\codegen\jni\CMakeLists.txt	†”šÌí3ê ÇÊÚÊí3`
+C/C++ Structured Log`
 ^
-\D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\additional_project_files.txt	†”šÌí3	û- ©ùíÊí3]
+\D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\additional_project_files.txtC
+A
+?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	ÿÛ¼Ğí3‘J ×Û¼Ğí3]
 [
-YD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\android_gradle_build.json	†”šÌí3
-à/ ®ùíÊí3b
+YD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\android_gradle_build.json	ÿÛ¼Ğí3û6 ØÛ¼Ğí3b
 `
-^D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\android_gradle_build_mini.json	†”šÌí3°+ ôùíÊí3O
+^D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\android_gradle_build_mini.json	ÿÛ¼Ğí3¹2 îÛ¼Ğí3O
 M
-KD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\build.ninja	†”šÌí3ùÎ ºøíÊí3S
+KD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\build.ninja	ÿÛ¼Ğí3çè óÚ¼Ğí3S
 Q
-OD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\build.ninja.txt	†”šÌí3X
+OD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\build.ninja.txt	ÿÛ¼Ğí3X
 V
-TD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\build_file_index.txt	†”šÌí3ü äÈÓ€í3Y
+TD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\build_file_index.txt	ÿÛ¼Ğí3Ø
+ ğÛ¼Ğí3Y
 W
-UD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\compile_commands.json	†”šÌí3´–
- ¸øíÊí3]
+UD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\compile_commands.json	ÿÛ¼Ğí3ªÂ ğÚ¼Ğí3]
 [
-YD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\compile_commands.json.bin	†”šÌí3àß ¸øíÊí3c
+YD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\compile_commands.json.bin	ÿÛ¼Ğí3	Û“ ğÚ¼Ğí3c
 a
-_D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\metadata_generation_command.txt	†”šÌí3£ áÈÓ€í3V
+_D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\metadata_generation_command.txt	ÿÛ¼Ğí3
+£ áÈÓ€í3V
 T
-RD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\prefab_config.json	‡”šÌí3˜ âÈÓ€í3[
+RD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\prefab_config.json	ÿÛ¼Ğí3˜ âÈÓ€í3[
 Y
-WD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\symbol_folder_index.txt	‡”šÌí3V âÈÓ€í3s
+WD:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\x86\symbol_folder_index.txt	ÿÛ¼Ğí3V âÈÓ€í3
+Š
+‡D:\PropertySurvey_mobileapp\node_modules\@bam.tech\react-native-image-resizer\android\build\generated\source\codegen\jni\CMakeLists.txt	ÿÛ¼Ğí3š ¼¨Ğí3
+‹
+ˆD:\PropertySurvey_mobileapp\node_modules\@react-native-camera-roll\camera-roll\android\build\generated\source\codegen\jni\CMakeLists.txt	ÿÛ¼Ğí3ö ”É¨Ğí3€
+~
+|D:\PropertySurvey_mobileapp\node_modules\react-native-image-picker\android\build\generated\source\codegen\jni\CMakeLists.txt	ÿÛ¼Ğí3” “Õ¨Ğí3
+}
+{D:\PropertySurvey_mobileapp\node_modules\react-native-permissions\android\build\generated\source\codegen\jni\CMakeLists.txt	ÿÛ¼Ğí3” ÿÚ¨Ğí3o
+m
+kD:\PropertySurvey_mobileapp\node_modules\react-native-safe-area-context\android\src\main\jni\CMakeLists.txt	ÿÛ¼Ğí3Ç ÒÃ‘±ë3e
+c
+aD:\PropertySurvey_mobileapp\node_modules\react-native-screens\android\src\main\jni\CMakeLists.txt	ÿÛ¼Ğí3€ ½‰’±ë3€
+~
+|D:\PropertySurvey_mobileapp\node_modules\react-native-vector-icons\android\build\generated\source\codegen\jni\CMakeLists.txt	ÿÛ¼Ğí3” í¨Ğí3}
+{
+yD:\PropertySurvey_mobileapp\node_modules\react-native-view-shot\android\build\generated\source\codegen\jni\CMakeLists.txt	ÿÛ¼Ğí3ê ˜ó¨Ğí3s
 q
-oD:\PropertySurvey_mobileapp\node_modules\react-native\ReactAndroid\cmake-utils\default-app-setup\CMakeLists.txt	‡”šÌí3ğ éÉ’±ë3
+oD:\PropertySurvey_mobileapp\node_modules\react-native\ReactAndroid\cmake-utils\default-app-setup\CMakeLists.txt	ÿÛ¼Ğí3ğ éÉ’±ë3
