@@ -5,11 +5,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
+  Alert,
 } from 'react-native';
 import {Card, Text, TextInput, Button} from 'react-native-paper';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../navigation/AppNavigator';
 import {ORANGE} from '../theme';
+import {pickImageFromGallery, compressAndSaveImage} from '../utils/imageUtils';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -47,6 +50,18 @@ export default function LoginScreen({navigation}: Props) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
+
+  const handleImageCapture = async () => {
+    try {
+      const imageUri = await pickImageFromGallery();
+      if (imageUri) {
+        const savedPath = await compressAndSaveImage(imageUri);
+        Alert.alert('Success', 'Image saved successfully!');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to save image');
+    }
+  };
 
   const status = statusConfig[DEVICE_STATUS];
   const isRestricted = DEVICE_STATUS !== 'approved';
@@ -182,6 +197,17 @@ export default function LoginScreen({navigation}: Props) {
             <Text style={styles.forgotText}>Forgot Password?</Text>
           </Card.Content>
         </Card>
+
+        {/* Logo Image */}
+        <View style={styles.logoImageContainer}>
+          <Image
+            source={require('../assets/images/logo.png')}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+
+    
 
         <Text style={styles.versionText}>Version 1.0.0</Text>
       </ScrollView>
@@ -356,8 +382,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  logoImageContainer: {
+     padding: 10,
+    marginTop: 20,
+    marginBottom: 16,
+    elevation: 2,
+    },
+    
+  logoImage: {
+    width: 150,
+    height: 80,
+    alignSelf: 'center',
+  },
+  
   versionText: {
-    marginTop: 24,
     color: '#BDBDBD',
     fontSize: 12,
   },

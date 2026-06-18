@@ -168,7 +168,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "appmodules::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-appmodules-Debug-4d56253eae14a570400b.json",
+					"jsonFile" : "target-appmodules-Debug-a336b2fc9c85b658160f.json",
 					"name" : "appmodules",
 					"projectIndex" : 0
 				},
@@ -203,7 +203,7 @@
 				{
 					"directoryIndex" : 5,
 					"id" : "react_codegen_rnscreens::@25bcbd507e98d3a854ad",
-					"jsonFile" : "target-react_codegen_rnscreens-Debug-d227f9c0a11c854c957d.json",
+					"jsonFile" : "target-react_codegen_rnscreens-Debug-008c67085f4c782b3487.json",
 					"name" : "react_codegen_rnscreens",
 					"projectIndex" : 0
 				},
@@ -217,7 +217,7 @@
 				{
 					"directoryIndex" : 4,
 					"id" : "react_codegen_safeareacontext::@7984cd80db47aa7b952a",
-					"jsonFile" : "target-react_codegen_safeareacontext-Debug-1000ea633006c778dad4.json",
+					"jsonFile" : "target-react_codegen_safeareacontext-Debug-499f4d7c32539b71d339.json",
 					"name" : "react_codegen_safeareacontext",
 					"projectIndex" : 0
 				}
@@ -227,7 +227,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/arm64-v8a",
+		"build" : "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64",
 		"source" : "D:/PropertySurvey_mobileapp/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup"
 	},
 	"version" : 

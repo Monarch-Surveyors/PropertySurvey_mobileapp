@@ -300,19 +300,11 @@
 	[
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_rncameraroll::@60139d220751b3dabc04"
-		},
-		{
-			"backtrace" : 4,
-			"id" : "react_codegen_RNImagePickerSpec::@f66ee9a2efecfb28bee4"
-		},
-		{
-			"backtrace" : 4,
-			"id" : "react_codegen_RNPermissionsSpec::@7ad697819b753921c957"
-		},
-		{
-			"backtrace" : 4,
 			"id" : "react_codegen_rnviewshot::@0ba03d237e60b9258a87"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d"
 		},
 		{
 			"backtrace" : 4,
@@ -324,7 +316,15 @@
 		},
 		{
 			"backtrace" : 4,
-			"id" : "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d"
+			"id" : "react_codegen_rncameraroll::@60139d220751b3dabc04"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "react_codegen_RNImagePickerSpec::@f66ee9a2efecfb28bee4"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "react_codegen_RNPermissionsSpec::@7ad697819b753921c957"
 		}
 	],
 	"id" : "appmodules::@6890427a1f51a3e7e1df",
