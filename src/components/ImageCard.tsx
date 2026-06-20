@@ -6,10 +6,12 @@ import {
   Modal,
   Image,
   Dimensions,
+  StatusBar,
   PermissionsAndroid,
   Platform,
   ActivityIndicator,
   Alert,
+  useWindowDimensions,
 } from 'react-native';
 import { Text, Surface, TouchableRipple, Divider } from 'react-native-paper';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -19,7 +21,6 @@ import { ORANGE } from '../theme';
 import { LocationData } from '../hooks/useLocation';
 
 const CARD_SIZE = (Dimensions.get('window').width - 48 - 24) / 3;
-const { width: W, height: H } = Dimensions.get('window');
 
 type Props = {
   label: string;
@@ -41,13 +42,33 @@ export default function ImageCard({
   const [sheetVisible, setSheetVisible] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const {width: previewWidth, height: previewHeight} = useWindowDimensions();
 
   const compressImageTo100KB = async (uri: string): Promise<string> => {
     let quality = 80;
-    let width = 800;
-    let height = 800;
+    const originalSize = await new Promise<{width: number; height: number}>(resolve => {
+      Image.getSize(
+        uri,
+        (width, height) => resolve({width, height}),
+        () => resolve({width: 800, height: 800}),
+      );
+    });
+    const getScaledSize = (maxSize: number) => {
+      if (originalSize.width >= originalSize.height) {
+        return {
+          width: maxSize,
+          height: Math.max(1, Math.round((originalSize.height / originalSize.width) * maxSize)),
+        };
+      }
+      return {
+        width: Math.max(1, Math.round((originalSize.width / originalSize.height) * maxSize)),
+        height: maxSize,
+      };
+    };
+    let maxSize = 1000;
     
     while (quality > 5) {
+      const {width, height} = getScaledSize(maxSize);
       const compressed = await ImageResizer.createResizedImage(
         uri,
         width,
@@ -73,11 +94,11 @@ export default function ImageCard({
         quality -= 5;
       } else {
         quality -= 2;
-        width = Math.floor(width * 0.9);
-        height = Math.floor(height * 0.9);
+        maxSize = Math.max(320, Math.floor(maxSize * 0.9));
       }
     }
     
+    const {width, height} = getScaledSize(maxSize);
     const compressed = await ImageResizer.createResizedImage(
       uri,
       width,
@@ -181,7 +202,7 @@ export default function ImageCard({
             <Image
               source={{ uri: imageUri }}
               style={styles.image}
-              resizeMode="cover"
+              resizeMode="contain"
             />
           ) : (
             <View style={styles.placeholder}>
@@ -204,12 +225,18 @@ export default function ImageCard({
         visible={previewVisible}
         animationType="fade"
         onRequestClose={() => setPreviewVisible(false)}
+        presentationStyle="fullScreen"
+        navigationBarTranslucent
         statusBarTranslucent>
+        <StatusBar hidden={previewVisible} backgroundColor="#000" translucent />
         <View style={styles.previewBg}>
           <Image
             source={{ uri: imageUri! }}
-            style={styles.previewImg}
-            resizeMode="contain"
+            style={[
+              styles.previewImg,
+              {width: previewWidth, height: previewHeight},
+            ]}
+            resizeMode="cover"
             onError={(e) => console.log('IMG ERROR:', e.nativeEvent.error, 'URI:', imageUri)}
             onLoad={() => console.log('IMG LOADED OK:', imageUri)}
           />
@@ -328,7 +355,7 @@ const styles = StyleSheet.create({
   required: { color: '#F44336', fontWeight: '700', fontSize: 12, marginLeft: 1 },
   // Preview
   previewBg: { flex: 1, backgroundColor: '#000' },
-  previewImg: { width: W, height: H },
+  previewImg: {},
   wmBar: {
     position: 'absolute',
     bottom: 0,

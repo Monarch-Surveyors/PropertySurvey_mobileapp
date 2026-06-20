@@ -5,6 +5,7 @@ import {
   ScrollView,
   Alert,
   Image,
+  Dimensions,
   PermissionsAndroid,
   Platform,
   Modal,
@@ -33,6 +34,14 @@ const DUMMY_PROPERTIES = [
   { ward: '2', property: '2', partition: '2' },
   { ward: '2', property: '2', partition: '3' },
 ];
+
+const SCREEN_SIZE = Dimensions.get('screen');
+const SAVE_CANVAS_WIDTH = 900;
+const SAVE_CANVAS_HEIGHT = Math.round(
+  SAVE_CANVAS_WIDTH *
+    Math.max(SCREEN_SIZE.height / SCREEN_SIZE.width, 16 / 9),
+);
+const SAVE_WATERMARK_HEIGHT = Math.round(SAVE_CANVAS_HEIGHT * 0.16);
 
 export default function PropertySurveyScreen() {
   const {logout, isOnline, userData} = useAuth();
@@ -585,37 +594,12 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
   const viewRefs = useRef<(ViewShotRef | null)[]>([]);
 
   useEffect(() => {
-    let mounted = true;
-    const fetchDimensions = async () => {
-      const dims = await Promise.all(
-        images.map(img => 
-          new Promise<{width: number, height: number}>(resolve => {
-            Image.getSize(
-              img, 
-              (width, height) => resolve({width, height}),
-              () => resolve({width: 800, height: 800})
-            );
-          })
-        )
-      );
-      if (mounted) {
-        const scaledDims = dims.map(d => {
-          const MAX_DIM = 800; // Cap at 800 to prevent Android canvas clipping
-          let targetWidth, targetHeight;
-          if (d.width > d.height) {
-             targetWidth = MAX_DIM;
-             targetHeight = (d.height / d.width) * MAX_DIM;
-          } else {
-             targetHeight = MAX_DIM;
-             targetWidth = (d.width / d.height) * MAX_DIM;
-          }
-          return {width: targetWidth, height: targetHeight};
-        });
-        setDimensions(scaledDims);
-      }
-    };
-    fetchDimensions();
-    return () => { mounted = false; };
+    setDimensions(
+      images.map(() => ({
+        width: SAVE_CANVAS_WIDTH,
+        height: SAVE_CANVAS_HEIGHT,
+      })),
+    );
   }, [images]);
 
   useEffect(() => {
@@ -653,21 +637,22 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
 
         const labelSize = Math.max(18, dim.width * 0.055);
         const textSize = Math.max(16, dim.width * 0.048);
-
         return (
           <ViewShot
             key={i}
-            ref={el => (viewRefs.current[i] = el)}
+            ref={el => {
+              viewRefs.current[i] = el;
+            }}
             options={{format: 'jpg', quality: 0.9}}
             style={[styles.offscreen, {width: dim.width, height: dim.height}]}>
             <Image
               source={{uri: images[i]}}
-              style={{width: dim.width, height: dim.height}}
+              style={{width: dim.width, height: dim.height, backgroundColor: '#000'}}
               resizeMode="cover"
               onLoad={() => setLoadedCount(c => c + 1)}
               onError={() => setLoadedCount(c => c + 1)}
             />
-            <View style={styles.offscreenWm}>
+            <View style={[styles.offscreenWm, {height: SAVE_WATERMARK_HEIGHT}]}>
               <Text style={[styles.offscreenLabel, {fontSize: labelSize}]}>{labels[i]}</Text>
               <Text style={[styles.offscreenText, {fontSize: textSize, lineHeight: textSize * 1.2}]}>
                 {ready
@@ -829,10 +814,13 @@ const styles = StyleSheet.create({
   },
   offscreen: {
     position: 'absolute',
-    width:720,
-    height:720,
-    top: -99999,
-    left: -99999,
+    top: 0,
+    left: 0,
+    opacity: 0,
+    zIndex: -1,
+    elevation: -1,
+    overflow: 'hidden',
+    backgroundColor: '#000',
   },
   offscreenImg: {
     width: 720,
