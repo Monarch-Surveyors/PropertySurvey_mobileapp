@@ -634,8 +634,8 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
       {dimensions.map((dim, i) => {
         if (!dim) return null;
 
-        const labelSize = Math.max(18, dim.width * 0.055);
-        const textSize = Math.max(16, dim.width * 0.048);
+        const labelSize = Math.max(18, dim.width * 0.05);
+        const textSize = Math.max(16, dim.width * 0.043);
         return (
           <ViewShot
             key={i}
@@ -653,7 +653,9 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
             />
             <View style={styles.offscreenWm}>
               <Text style={[styles.offscreenLabel, {fontSize: labelSize}]}>{labels[i]}</Text>
-              <Text style={[styles.offscreenText, {fontSize: textSize, lineHeight: textSize * 1.2}]}>
+              <Text
+                style={[styles.offscreenText, {fontSize: textSize, lineHeight: textSize * 1.35}]}
+                numberOfLines={1}>
                 {ready
                   ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
                   : 'Fetching location...'}
@@ -833,7 +835,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.65)',
     paddingHorizontal: 16,
     paddingTop: 6,
-    paddingBottom: 10,
+    paddingBottom: 30,
   },
   offscreenLabel: {
     color: '#f52b07',
@@ -852,7 +854,7 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: '600',
     lineHeight: 42,
-    flexWrap: 'wrap',
+    includeFontPadding: true,
   },
   offlineBanner: {
     backgroundColor: '#FFF3CD',
