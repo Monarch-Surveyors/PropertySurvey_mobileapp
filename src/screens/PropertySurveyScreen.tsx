@@ -198,7 +198,7 @@ export default function PropertySurveyScreen() {
               text: labelText,
               positionOptions: {
                 X: '2%',
-                Y: `${100 - (((fontSize * 2.2) / imageSize.height) * 100) - 1}%`,
+                Y: `${100 - (((fontSize * 2.8) / imageSize.height) * 100)}%`,
               },
               style: {
                 color: '#FF0000',
