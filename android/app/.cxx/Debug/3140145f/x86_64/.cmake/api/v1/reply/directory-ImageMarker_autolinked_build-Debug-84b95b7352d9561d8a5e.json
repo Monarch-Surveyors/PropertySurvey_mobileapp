@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "ImageMarker_autolinked_build",
+		"source" : "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni"
+	}
+}

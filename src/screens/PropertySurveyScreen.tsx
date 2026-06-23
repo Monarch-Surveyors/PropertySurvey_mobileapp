@@ -1,26 +1,26 @@
-import React, {useState, useMemo, useRef, useEffect, useCallback} from 'react';
+import React, {useState, useMemo, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
   Alert,
   Image,
-  Dimensions,
   PermissionsAndroid,
   Platform,
   Modal,
 } from 'react-native';
-import {Card, Text, Button, Divider, TextInput, IconButton, ProgressBar} from 'react-native-paper';
+import {Card, Text, Button, Divider, TextInput, ProgressBar} from 'react-native-paper';
 import Header from '../components/Header';
 import CustomDropdown from '../components/CustomDropdown';
 import ImageCard from '../components/ImageCard';
 import {useAuth} from '../context/AuthContext';
 import {ORANGE} from '../theme';
-import ViewShot, {captureRef, type ViewShotRef} from 'react-native-view-shot';
+
+import Marker, { Position, TextBackgroundType } from 'react-native-image-marker';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import RNFS from 'react-native-fs';
 import {useLocation} from '../hooks/useLocation';
-import {ImageSyncService, type ImageSyncStatus, SERVER_ALBUM} from '../services/imageSync';
+import {ImageSyncService, SERVER_ALBUM} from '../services/imageSync';
 
 // Dummy property list
 const DUMMY_PROPERTIES = [
@@ -35,21 +35,15 @@ const DUMMY_PROPERTIES = [
   { ward: '2', property: '2', partition: '3' },
 ];
 
-const SCREEN_SIZE = Dimensions.get('screen');
 const SAVE_CANVAS_WIDTH = 1080;
-const SAVE_CANVAS_HEIGHT = Math.round(
-  SAVE_CANVAS_WIDTH *
-    Math.max(SCREEN_SIZE.height / SCREEN_SIZE.width, 16 / 9),
-);
 
 export default function PropertySurveyScreen() {
-  const {logout, isOnline, userData} = useAuth();
+  const {logout, isOnline} = useAuth();
   const [ward, setWard] = useState('');
   const [property, setProperty] = useState('');
   const [partition, setPartition] = useState('');
   const [images, setImages] = useState<(string | null)[]>([null, null, null]);
   const [saving, setSaving] = useState(false);
-  const [captureRequest, setCaptureRequest] = useState<{images: string[], labels: string[]} | null>(null);
   const {location, ready} = useLocation();
   const [syncing, setSyncing] = useState(false);
   const [syncProgress, setSyncProgress] = useState({current: 0, total: 0, fileName: ''});
@@ -168,30 +162,70 @@ export default function PropertySurveyScreen() {
   };
   // ───────────────────────────────────────────────────────────────────────────
 
-  const processCapturedImages = useCallback(async (capturedUris: string[]) => {
-    const req = captureRequest;
-    setCaptureRequest(null);
-    if (!req) return;
-
-    const tempFiles: string[] = [];
+  const processCapturedImages = useCallback(async (capturedUris: string[], labels: string[]) => {
     try {
       let savedCount = 0;
       for (let i = 0; i < capturedUris.length; i++) {
         const uri = capturedUris[i];
-        const fileName = `${req.labels[i]}.jpg`;
+        const fileName = `${labels[i]}.jpg`;
         const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
         const tempPath = uri.replace('file://', '');
         
         if (await RNFS.exists(destPath)) {
           await RNFS.unlink(destPath);
         }
-        await RNFS.copyFile(tempPath, destPath);
-        tempFiles.push(tempPath, destPath);
+
+        const imageSize = await new Promise<{width: number; height: number}>((resolve, reject) => {
+          Image.getSize(uri, (width, height) => resolve({width, height}), reject);
+        }).catch(() => ({width: 1080, height: 1920}));
+
+        const labelText = labels[i];
+        const locationText = ready 
+             ? `Lat: ${location.latitude}  Lng: ${location.longitude}` 
+             : 'Fetching location...';
+        
+        const watermarkText = `${labelText}\n${locationText}`;
+        const fontSize = Math.max(30, Math.floor(imageSize.width * 0.043));
+
+        const markedImagePath = await Marker.markText({
+          backgroundImage: {
+            src: uri,
+            scale: 1,
+          },
+          watermarkTexts: [{
+            text: watermarkText,
+            positionOptions: {
+              position: Position.bottomLeft,
+            },
+            style: {
+              color: '#FFFFFF',
+              fontName: 'Arial',
+              fontSize: fontSize,
+              textBackgroundStyle: {
+                type: TextBackgroundType.stretchX,
+                paddingX: 20,
+                paddingY: 20,
+                color: 'rgba(0,0,0,0.6)',
+              }
+            }
+          }],
+          quality: 100,
+        });
+
+        const actualMarkedPath = markedImagePath.startsWith('file://') ? markedImagePath.replace('file://', '') : markedImagePath;
+
+        await RNFS.copyFile(actualMarkedPath, destPath);
         await CameraRoll.saveAsset(`file://${destPath}`, {type: 'photo', album: 'PropertySurvey'});
         
         // Add to sync queue
         await ImageSyncService.addPendingImage(destPath, fileName);
         
+        try {
+           if (actualMarkedPath !== destPath && await RNFS.exists(actualMarkedPath)) {
+              await RNFS.unlink(actualMarkedPath);
+           }
+        } catch (e) {}
+
         console.log('Saved:', fileName);
         savedCount++;
       }
@@ -201,20 +235,9 @@ export default function PropertySurveyScreen() {
       console.log('Save Error:', error);
       Alert.alert('Error', 'Failed to save images: ' + error);
     } finally {
-      await Promise.all(
-        tempFiles.map(async filePath => {
-          try {
-            if (await RNFS.exists(filePath)) {
-              await RNFS.unlink(filePath);
-            }
-          } catch (cleanupError) {
-            console.log('Temp cleanup failed:', cleanupError);
-          }
-        }),
-      );
       setSaving(false);
     }
-  }, [captureRequest]);
+  }, [loadSyncCounts, location, ready]);
 
   const handleSaveImages = async () => {
     if (!ward || !property) {
@@ -246,7 +269,8 @@ export default function PropertySurveyScreen() {
         validLabels.push(imageLabels[idx]);
       }
     });
-    setCaptureRequest({images: validImages, labels: validLabels});
+    
+    await processCapturedImages(validImages, validLabels);
   };
 
   const handleSyncImages = async () => {
@@ -538,21 +562,7 @@ export default function PropertySurveyScreen() {
         </View>
       </Modal>
 
-      {/* Offscreen watermark views for saving */}
-      {captureRequest && (
-        <WatermarkCaptureManager
-          images={captureRequest.images}
-          labels={captureRequest.labels}
-          location={location}
-          ready={ready}
-          onSuccess={processCapturedImages}
-          onError={(err) => {
-            setCaptureRequest(null);
-            setSaving(false);
-            Alert.alert('Error', err.toString());
-          }}
-        />
-      )}
+      {/* Capture views removed to save original image instead */}
 
       <View style={styles.footer}>
         <Button
@@ -575,96 +585,6 @@ export default function PropertySurveyScreen() {
         </Button>
       </View>
     </View>
-  );
-}
-
-type CaptureManagerProps = {
-  images: string[];
-  labels: string[];
-  location: any;
-  ready: boolean;
-  onSuccess: (uris: string[]) => void;
-  onError: (error: any) => void;
-};
-
-function WatermarkCaptureManager({images, labels, location, ready, onSuccess, onError}: CaptureManagerProps) {
-  const [dimensions, setDimensions] = useState<({width: number, height: number} | null)[]>(images.map(() => null));
-  const [loadedCount, setLoadedCount] = useState(0);
-  const viewRefs = useRef<(ViewShotRef | null)[]>([]);
-
-  useEffect(() => {
-    setDimensions(
-      images.map(() => ({
-        width: SAVE_CANVAS_WIDTH,
-        height: SAVE_CANVAS_HEIGHT,
-      })),
-    );
-  }, [images]);
-
-  useEffect(() => {
-    let mounted = true;
-    const dimensionsReady = dimensions.every(d => d !== null);
-    if (dimensionsReady && loadedCount === images.length && images.length > 0) {
-      const timer = setTimeout(async () => {
-        try {
-          const uris: string[] = [];
-          for (let i = 0; i < images.length; i++) {
-            if (viewRefs.current[i]) {
-              const uri = await captureRef(viewRefs.current[i], {format: 'jpg', quality: 1});
-              uris.push(uri);
-            } else {
-              throw new Error(`ViewShot ${i} not ready`);
-            }
-          }
-          if (mounted) onSuccess(uris);
-        } catch (e) {
-          if (mounted) onError(e);
-        }
-      }, 500);
-      return () => {
-        mounted = false;
-        clearTimeout(timer);
-      };
-    }
-    return () => { mounted = false; };
-  }, [dimensions, loadedCount, images.length, onSuccess, onError]);
-
-  return (
-    <>
-      {dimensions.map((dim, i) => {
-        if (!dim) return null;
-
-        const labelSize = Math.max(18, dim.width * 0.05);
-        const textSize = Math.max(16, dim.width * 0.043);
-        return (
-          <ViewShot
-            key={i}
-            ref={el => {
-              viewRefs.current[i] = el;
-            }}
-            options={{format: 'jpg', quality: 1}}
-            style={[styles.offscreen, {width: dim.width, height: dim.height}]}>
-            <Image
-              source={{uri: images[i]}}
-              style={{width: dim.width, height: dim.height, backgroundColor: '#000'}}
-              resizeMode="cover"
-              onLoad={() => setLoadedCount(c => c + 1)}
-              onError={() => setLoadedCount(c => c + 1)}
-            />
-            <View style={styles.offscreenWm}>
-              <Text style={[styles.offscreenLabel, {fontSize: labelSize}]}>{labels[i]}</Text>
-              <Text
-                style={[styles.offscreenText, {fontSize: textSize, lineHeight: textSize * 1.35}]}
-                numberOfLines={1}>
-                {ready
-                  ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
-                  : 'Fetching location...'}
-              </Text>
-            </View>
-          </ViewShot>
-        );
-      })}
-    </>
   );
 }
 

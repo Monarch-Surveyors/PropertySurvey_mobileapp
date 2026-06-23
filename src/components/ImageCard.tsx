@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -15,8 +15,6 @@ import {
 } from 'react-native';
 import { Text, Surface, TouchableRipple, Divider } from 'react-native-paper';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import ImageResizer from '@bam.tech/react-native-image-resizer';
-import RNFS from 'react-native-fs';
 import { ORANGE } from '../theme';
 import { LocationData } from '../hooks/useLocation';
 
@@ -42,76 +40,42 @@ export default function ImageCard({
   const [sheetVisible, setSheetVisible] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [imageSize, setImageSize] = useState<{width: number; height: number} | null>(null);
   const {width: previewWidth, height: previewHeight} = useWindowDimensions();
 
-  const prepareImageForWatermark = async (uri: string): Promise<string> => {
-    let quality = 92;
-    const originalSize = await new Promise<{width: number; height: number}>(resolve => {
-      Image.getSize(
-        uri,
-        (width, height) => resolve({width, height}),
-        () => resolve({width: 800, height: 800}),
-      );
-    });
-    const getScaledSize = (maxSize: number) => {
-      if (originalSize.width >= originalSize.height) {
-        return {
-          width: maxSize,
-          height: Math.max(1, Math.round((originalSize.height / originalSize.width) * maxSize)),
-        };
-      }
-      return {
-        width: Math.max(1, Math.round((originalSize.width / originalSize.height) * maxSize)),
-        height: maxSize,
-      };
-    };
-    let maxSize = 2400;
-    
-    while (quality > 5) {
-      const {width, height} = getScaledSize(maxSize);
-      const compressed = await ImageResizer.createResizedImage(
-        uri,
-        width,
-        height,
-        'JPEG',
-        quality,
-        0,
-        undefined,
-        false,
-        { mode: 'contain', onlyScaleDown: true }
-      );
-      
-      const stats = await RNFS.stat(compressed.uri);
-      const fileSizeKB = stats.size / 1024;
-      
-      if (fileSizeKB <= 2048) {
-        return compressed.uri;
-      }
-      
-      if (quality > 78) {
-        quality -= 4;
-      } else if (quality > 68) {
-        quality -= 3;
-      } else {
-        quality -= 2;
-        maxSize = Math.max(1600, Math.floor(maxSize * 0.92));
-      }
+  useEffect(() => {
+    if (!imageUri) {
+      setImageSize(null);
+      return;
     }
-    
-    const {width, height} = getScaledSize(maxSize);
-    const compressed = await ImageResizer.createResizedImage(
-      uri,
-      width,
-      height,
-      'JPEG',
-      68,
-      0,
-      undefined,
-      false,
-      { mode: 'contain', onlyScaleDown: true }
+
+    Image.getSize(
+      imageUri,
+      (width, height) => setImageSize({width, height}),
+      () => setImageSize(null),
     );
-    return compressed.uri;
-  };
+  }, [imageUri]);
+
+  const fittedPreviewSize = useMemo(() => {
+    if (!imageSize) {
+      return {width: previewWidth, height: previewHeight};
+    }
+
+    const imageAspect = imageSize.width / imageSize.height;
+    const screenAspect = previewWidth / previewHeight;
+
+    if (imageAspect > screenAspect) {
+      return {
+        width: previewWidth,
+        height: previewWidth / imageAspect,
+      };
+    }
+
+    return {
+      width: previewHeight * imageAspect,
+      height: previewHeight,
+    };
+  }, [imageSize, previewHeight, previewWidth]);
 
   const handleTakePhoto = async () => {
     setSheetVisible(false);
@@ -130,6 +94,7 @@ export default function ImageCard({
       const result = await launchCamera({
         mediaType: 'photo',
         saveToPhotos: false,
+        quality: 1,
       });
 
       if (result.errorMessage) {
@@ -138,8 +103,15 @@ export default function ImageCard({
       }
 
       if (result.assets?.[0]?.uri) {
-        const compressedUri = await prepareImageForWatermark(result.assets[0].uri);
-        onImageSelected(compressedUri);
+        const asset = result.assets[0];
+        const uri = asset.uri;
+        if (!uri) return;
+        setImageSize(
+          asset.width && asset.height
+            ? {width: asset.width, height: asset.height}
+            : null,
+        );
+        onImageSelected(uri);
       }
     } catch (error) {
       console.log('Camera Error:', error);
@@ -155,6 +127,7 @@ export default function ImageCard({
       setProcessing(true);
       const result = await launchImageLibrary({
         mediaType: 'photo',
+        quality: 1,
       });
 
       if (result.errorMessage) {
@@ -163,8 +136,15 @@ export default function ImageCard({
       }
 
       if (result.assets?.[0]?.uri) {
-        const compressedUri = await prepareImageForWatermark(result.assets[0].uri);
-        onImageSelected(compressedUri);
+        const asset = result.assets[0];
+        const uri = asset.uri;
+        if (!uri) return;
+        setImageSize(
+          asset.width && asset.height
+            ? {width: asset.width, height: asset.height}
+            : null,
+        );
+        onImageSelected(uri);
       }
     } catch (error) {
       console.log('Gallery Error:', error);
@@ -230,16 +210,15 @@ export default function ImageCard({
         statusBarTranslucent>
         <StatusBar hidden={previewVisible} backgroundColor="#000" translucent />
         <View style={styles.previewBg}>
-          <Image
-            source={{ uri: imageUri! }}
-            style={[
-              styles.previewImg,
-              {width: previewWidth, height: previewHeight},
-            ]}
-            resizeMode="cover"
-            onError={(e) => console.log('IMG ERROR:', e.nativeEvent.error, 'URI:', imageUri)}
-            onLoad={() => console.log('IMG LOADED OK:', imageUri)}
-          />
+          <View style={[styles.previewFrame, fittedPreviewSize]}>
+            <Image
+              source={{ uri: imageUri! }}
+              style={styles.previewImg}
+              resizeMode="contain"
+              onError={(e) => console.log('IMG ERROR:', e.nativeEvent.error, 'URI:', imageUri)}
+              onLoad={() => console.log('IMG LOADED OK:', imageUri)}
+            />
+          </View>
           <View style={styles.wmBar}>
             <Text style={styles.wmLabel}>{label}</Text>
             <Text style={styles.wmText}>
@@ -354,8 +333,20 @@ const styles = StyleSheet.create({
   },
   required: { color: '#F44336', fontWeight: '700', fontSize: 12, marginLeft: 1 },
   // Preview
-  previewBg: { flex: 1, backgroundColor: '#000' },
-  previewImg: {},
+  previewBg: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  previewFrame: {
+    overflow: 'hidden',
+    backgroundColor: '#000',
+  },
+  previewImg: {
+    width: '100%',
+    height: '100%',
+  },
   wmBar: {
     position: 'absolute',
     bottom: 0,

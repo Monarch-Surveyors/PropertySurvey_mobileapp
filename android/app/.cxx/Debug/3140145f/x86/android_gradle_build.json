@@ -4,6 +4,7 @@
     "D:\\PropertySurvey_mobileapp\\node_modules\\@react-native-async-storage\\async-storage\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\@react-native-camera-roll\\camera-roll\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\@react-native-community\\netinfo\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
+    "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-image-marker\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-image-picker\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-permissions\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-safe-area-context\\android\\src\\main\\jni\\CMakeLists.txt",
@@ -44,6 +45,11 @@
       "toolchain": "toolchain",
       "abi": "x86",
       "artifactName": "react_codegen_AsyncStorageSpec"
+    },
+    "react_codegen_ImageMarker::@27899b168d8c34d39793": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_ImageMarker"
     },
     "react_codegen_RNCNetInfoSpec::@c36c96bfd5b5770618a5": {
       "toolchain": "toolchain",

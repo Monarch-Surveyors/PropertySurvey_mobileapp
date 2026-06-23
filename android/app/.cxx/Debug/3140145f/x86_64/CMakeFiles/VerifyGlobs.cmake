@@ -108,6 +108,30 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/CMakeFiles/cmake.verify_globs")
 endif()
 
+# react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/ImageMarker-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/react/renderer/components/ImageMarker/*.cpp")
+set(OLD_GLOB
+  "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/react/renderer/components/ImageMarker/ComponentDescriptors.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/react/renderer/components/ImageMarker/EventEmitters.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/react/renderer/components/ImageMarker/Props.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/react/renderer/components/ImageMarker/ShadowNodes.cpp"
+  "D:/PropertySurvey_mobileapp/node_modules/react-native-image-marker/android/build/generated/source/codegen/jni/react/renderer/components/ImageMarker/States.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/CMakeFiles/cmake.verify_globs")
+endif()
+
 # react_codegen_SRCS at D:/PropertySurvey_mobileapp/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "D:/PropertySurvey_mobileapp/node_modules/react-native-image-picker/android/build/generated/source/codegen/jni/*.cpp")
 set(OLD_GLOB

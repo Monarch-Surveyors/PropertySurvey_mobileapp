@@ -22,6 +22,12 @@ D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNCNetInfo
 D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNCNetInfoSpec_autolinked_build\CMakeFiles\react_codegen_RNCNetInfoSpec.dir\react\renderer\components\RNCNetInfoSpec\Props.cpp.o
 D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNCNetInfoSpec_autolinked_build\CMakeFiles\react_codegen_RNCNetInfoSpec.dir\react\renderer\components\RNCNetInfoSpec\ShadowNodes.cpp.o
 D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNCNetInfoSpec_autolinked_build\CMakeFiles\react_codegen_RNCNetInfoSpec.dir\react\renderer\components\RNCNetInfoSpec\States.cpp.o
+D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\ImageMarker_autolinked_build\CMakeFiles\react_codegen_ImageMarker.dir\ImageMarker-generated.cpp.o
+D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\ImageMarker_autolinked_build\CMakeFiles\react_codegen_ImageMarker.dir\react\renderer\components\ImageMarker\ComponentDescriptors.cpp.o
+D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\ImageMarker_autolinked_build\CMakeFiles\react_codegen_ImageMarker.dir\react\renderer\components\ImageMarker\EventEmitters.cpp.o
+D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\ImageMarker_autolinked_build\CMakeFiles\react_codegen_ImageMarker.dir\react\renderer\components\ImageMarker\Props.cpp.o
+D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\ImageMarker_autolinked_build\CMakeFiles\react_codegen_ImageMarker.dir\react\renderer\components\ImageMarker\ShadowNodes.cpp.o
+D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\ImageMarker_autolinked_build\CMakeFiles\react_codegen_ImageMarker.dir\react\renderer\components\ImageMarker\States.cpp.o
 D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNImagePickerSpec_autolinked_build\CMakeFiles\react_codegen_RNImagePickerSpec.dir\RNImagePickerSpec-generated.cpp.o
 D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNImagePickerSpec_autolinked_build\CMakeFiles\react_codegen_RNImagePickerSpec.dir\react\renderer\components\RNImagePickerSpec\ComponentDescriptors.cpp.o
 D:\PropertySurvey_mobileapp\android\app\.cxx\Debug\3140145f\arm64-v8a\RNImagePickerSpec_autolinked_build\CMakeFiles\react_codegen_RNImagePickerSpec.dir\react\renderer\components\RNImagePickerSpec\EventEmitters.cpp.o

@@ -13,6 +13,9 @@ D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/rncamera
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/RNCNetInfoSpec_autolinked_build/CMakeFiles/edit_cache.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/RNCNetInfoSpec_autolinked_build/CMakeFiles/rebuild_cache.dir
+D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/ImageMarker_autolinked_build/CMakeFiles/react_codegen_ImageMarker.dir
+D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/ImageMarker_autolinked_build/CMakeFiles/edit_cache.dir
+D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/ImageMarker_autolinked_build/CMakeFiles/rebuild_cache.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/RNImagePickerSpec_autolinked_build/CMakeFiles/edit_cache.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/armeabi-v7a/RNImagePickerSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

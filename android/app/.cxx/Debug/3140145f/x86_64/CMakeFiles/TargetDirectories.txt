@@ -13,6 +13,9 @@ D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/rncameraroll_
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/react_codegen_RNCNetInfoSpec.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/edit_cache.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNCNetInfoSpec_autolinked_build/CMakeFiles/rebuild_cache.dir
+D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/ImageMarker_autolinked_build/CMakeFiles/react_codegen_ImageMarker.dir
+D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/ImageMarker_autolinked_build/CMakeFiles/edit_cache.dir
+D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/ImageMarker_autolinked_build/CMakeFiles/rebuild_cache.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/react_codegen_RNImagePickerSpec.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/edit_cache.dir
 D:/PropertySurvey_mobileapp/android/app/.cxx/Debug/3140145f/x86_64/RNImagePickerSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

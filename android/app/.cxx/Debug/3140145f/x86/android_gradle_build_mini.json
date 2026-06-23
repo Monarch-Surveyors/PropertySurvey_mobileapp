@@ -4,6 +4,7 @@
     "D:\\PropertySurvey_mobileapp\\node_modules\\@react-native-async-storage\\async-storage\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\@react-native-camera-roll\\camera-roll\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\@react-native-community\\netinfo\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
+    "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-image-marker\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-image-picker\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-permissions\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt",
     "D:\\PropertySurvey_mobileapp\\node_modules\\react-native-safe-area-context\\android\\src\\main\\jni\\CMakeLists.txt",
@@ -51,6 +52,11 @@
         "C:\\Users\\ishwa\\.gradle\\caches\\9.3.1\\transforms\\2b7c23aa4547eb79508e5d3aa3f2bc7a\\workspace\\transformed\\react-android-0.86.0-debug\\prefab\\modules\\jsi\\libs\\android.x86\\libjsi.so",
         "C:\\Users\\ishwa\\.gradle\\caches\\9.3.1\\transforms\\2b7c23aa4547eb79508e5d3aa3f2bc7a\\workspace\\transformed\\react-android-0.86.0-debug\\prefab\\modules\\reactnative\\libs\\android.x86\\libreactnative.so"
       ]
+    },
+    "react_codegen_ImageMarker::@27899b168d8c34d39793": {
+      "artifactName": "react_codegen_ImageMarker",
+      "abi": "x86",
+      "runtimeFiles": []
     },
     "react_codegen_RNPermissionsSpec::@7ad697819b753921c957": {
       "artifactName": "react_codegen_RNPermissionsSpec",
