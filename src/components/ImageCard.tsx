@@ -44,8 +44,8 @@ export default function ImageCard({
   const [processing, setProcessing] = useState(false);
   const {width: previewWidth, height: previewHeight} = useWindowDimensions();
 
-  const compressImageTo100KB = async (uri: string): Promise<string> => {
-    let quality = 80;
+  const prepareImageForWatermark = async (uri: string): Promise<string> => {
+    let quality = 92;
     const originalSize = await new Promise<{width: number; height: number}>(resolve => {
       Image.getSize(
         uri,
@@ -65,7 +65,7 @@ export default function ImageCard({
         height: maxSize,
       };
     };
-    let maxSize = 1000;
+    let maxSize = 2400;
     
     while (quality > 5) {
       const {width, height} = getScaledSize(maxSize);
@@ -78,23 +78,23 @@ export default function ImageCard({
         0,
         undefined,
         false,
-        { mode: 'contain', onlyScaleDown: false }
+        { mode: 'contain', onlyScaleDown: true }
       );
       
       const stats = await RNFS.stat(compressed.uri);
       const fileSizeKB = stats.size / 1024;
       
-      if (fileSizeKB <= 100) {
+      if (fileSizeKB <= 2048) {
         return compressed.uri;
       }
       
-      if (quality > 50) {
-        quality -= 10;
-      } else if (quality > 20) {
-        quality -= 5;
+      if (quality > 78) {
+        quality -= 4;
+      } else if (quality > 68) {
+        quality -= 3;
       } else {
         quality -= 2;
-        maxSize = Math.max(320, Math.floor(maxSize * 0.9));
+        maxSize = Math.max(1600, Math.floor(maxSize * 0.92));
       }
     }
     
@@ -104,11 +104,11 @@ export default function ImageCard({
       width,
       height,
       'JPEG',
-      5,
+      68,
       0,
       undefined,
       false,
-      { mode: 'contain', onlyScaleDown: false }
+      { mode: 'contain', onlyScaleDown: true }
     );
     return compressed.uri;
   };
@@ -138,7 +138,7 @@ export default function ImageCard({
       }
 
       if (result.assets?.[0]?.uri) {
-        const compressedUri = await compressImageTo100KB(result.assets[0].uri);
+        const compressedUri = await prepareImageForWatermark(result.assets[0].uri);
         onImageSelected(compressedUri);
       }
     } catch (error) {
@@ -163,7 +163,7 @@ export default function ImageCard({
       }
 
       if (result.assets?.[0]?.uri) {
-        const compressedUri = await compressImageTo100KB(result.assets[0].uri);
+        const compressedUri = await prepareImageForWatermark(result.assets[0].uri);
         onImageSelected(compressedUri);
       }
     } catch (error) {

@@ -36,12 +36,11 @@ const DUMMY_PROPERTIES = [
 ];
 
 const SCREEN_SIZE = Dimensions.get('screen');
-const SAVE_CANVAS_WIDTH = 900;
+const SAVE_CANVAS_WIDTH = 1080;
 const SAVE_CANVAS_HEIGHT = Math.round(
   SAVE_CANVAS_WIDTH *
     Math.max(SCREEN_SIZE.height / SCREEN_SIZE.width, 16 / 9),
 );
-const SAVE_WATERMARK_HEIGHT = Math.round(SAVE_CANVAS_HEIGHT * 0.16);
 
 export default function PropertySurveyScreen() {
   const {logout, isOnline, userData} = useAuth();
@@ -611,7 +610,7 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
           const uris: string[] = [];
           for (let i = 0; i < images.length; i++) {
             if (viewRefs.current[i]) {
-              const uri = await captureRef(viewRefs.current[i], {format: 'jpg', quality: 0.9});
+              const uri = await captureRef(viewRefs.current[i], {format: 'jpg', quality: 1});
               uris.push(uri);
             } else {
               throw new Error(`ViewShot ${i} not ready`);
@@ -643,7 +642,7 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
             ref={el => {
               viewRefs.current[i] = el;
             }}
-            options={{format: 'jpg', quality: 0.9}}
+            options={{format: 'jpg', quality: 1}}
             style={[styles.offscreen, {width: dim.width, height: dim.height}]}>
             <Image
               source={{uri: images[i]}}
@@ -652,7 +651,7 @@ function WatermarkCaptureManager({images, labels, location, ready, onSuccess, on
               onLoad={() => setLoadedCount(c => c + 1)}
               onError={() => setLoadedCount(c => c + 1)}
             />
-            <View style={[styles.offscreenWm, {height: SAVE_WATERMARK_HEIGHT}]}>
+            <View style={styles.offscreenWm}>
               <Text style={[styles.offscreenLabel, {fontSize: labelSize}]}>{labels[i]}</Text>
               <Text style={[styles.offscreenText, {fontSize: textSize, lineHeight: textSize * 1.2}]}>
                 {ready
@@ -833,13 +832,14 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: 'rgba(0,0,0,0.65)',
     paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingTop: 6,
+    paddingBottom: 10,
   },
   offscreenLabel: {
     color: '#f52b07',
     fontSize: 40,
     fontWeight: '900',
-    marginBottom: 8,
+    marginBottom: 2,
   },
   locationStatus: {
     textAlign: 'center',
