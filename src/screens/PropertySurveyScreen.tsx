@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect, useCallback} from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -9,18 +9,18 @@ import {
   Platform,
   Modal,
 } from 'react-native';
-import {Card, Text, Button, Divider, TextInput, ProgressBar} from 'react-native-paper';
+import { Card, Text, Button, Divider, TextInput, ProgressBar } from 'react-native-paper';
 import Header from '../components/Header';
 import CustomDropdown from '../components/CustomDropdown';
 import ImageCard from '../components/ImageCard';
-import {useAuth} from '../context/AuthContext';
-import {ORANGE} from '../theme';
+import { useAuth } from '../context/AuthContext';
+import { ORANGE } from '../theme';
 
 import Marker, { Position, TextBackgroundType } from 'react-native-image-marker';
-import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import RNFS from 'react-native-fs';
-import {useLocation} from '../hooks/useLocation';
-import {ImageSyncService, SERVER_ALBUM} from '../services/imageSync';
+import { useLocation } from '../hooks/useLocation';
+import { ImageSyncService, SERVER_ALBUM } from '../services/imageSync';
 
 // Dummy property list
 const DUMMY_PROPERTIES = [
@@ -38,19 +38,19 @@ const DUMMY_PROPERTIES = [
 const SAVE_CANVAS_WIDTH = 1080;
 
 export default function PropertySurveyScreen() {
-  const {logout, isOnline} = useAuth();
+  const { logout, isOnline } = useAuth();
   const [ward, setWard] = useState('');
   const [property, setProperty] = useState('');
   const [partition, setPartition] = useState('');
   const [images, setImages] = useState<(string | null)[]>([null, null, null]);
   const [saving, setSaving] = useState(false);
-  const {location, ready} = useLocation();
+  const { location, ready } = useLocation();
   const [syncing, setSyncing] = useState(false);
-  const [syncProgress, setSyncProgress] = useState({current: 0, total: 0, fileName: ''});
+  const [syncProgress, setSyncProgress] = useState({ current: 0, total: 0, fileName: '' });
   const [pendingCount, setPendingCount] = useState(0);
   const [syncedCount, setSyncedCount] = useState(0);
 
-  const WARD_ITEMS = Array.from({length: 10}, (_, i) => `${i + 1}`);
+  const WARD_ITEMS = Array.from({ length: 10 }, (_, i) => `${i + 1}`);
 
   const loadSyncCounts = useCallback(async () => {
     const pending = await ImageSyncService.getPendingImages();
@@ -68,16 +68,16 @@ export default function PropertySurveyScreen() {
       Alert.alert(
         'Offline Mode',
         'You cannot logout while offline. Please connect to the internet to logout.',
-        [{text: 'OK'}]
+        [{ text: 'OK' }]
       );
       return;
     }
-    
+
     Alert.alert(
       'Logout',
       'Are you sure you want to logout?',
       [
-        {text: 'Cancel', style: 'cancel'},
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Logout',
           style: 'destructive',
@@ -144,8 +144,8 @@ export default function PropertySurveyScreen() {
           buttonNegative: 'Deny',
         },
       );
-      return readResult === PermissionsAndroid.RESULTS.GRANTED && 
-             writeResult === PermissionsAndroid.RESULTS.GRANTED;
+      return readResult === PermissionsAndroid.RESULTS.GRANTED &&
+        writeResult === PermissionsAndroid.RESULTS.GRANTED;
     } else {
       // Android 9 and below → WRITE_EXTERNAL_STORAGE
       const result = await PermissionsAndroid.request(
@@ -170,61 +170,85 @@ export default function PropertySurveyScreen() {
         const fileName = `${labels[i]}.jpg`;
         const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
         const tempPath = uri.replace('file://', '');
-        
+
         if (await RNFS.exists(destPath)) {
           await RNFS.unlink(destPath);
         }
 
-        const imageSize = await new Promise<{width: number; height: number}>((resolve, reject) => {
-          Image.getSize(uri, (width, height) => resolve({width, height}), reject);
-        }).catch(() => ({width: 1080, height: 1920}));
+        const imageSize = await new Promise<{ width: number; height: number }>((resolve, reject) => {
+          Image.getSize(uri, (width, height) => resolve({ width, height }), reject);
+        }).catch(() => ({ width: 1080, height: 1920 }));
 
         const labelText = labels[i];
-        const locationText = ready 
-             ? `Lat: ${location.latitude}  Lng: ${location.longitude}` 
-             : 'Fetching location...';
-        
-        const watermarkText = `${labelText}\n${locationText}`;
+        const locationText = ready
+          ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
+          : 'Fetching location...';
+
         const fontSize = Math.max(30, Math.floor(imageSize.width * 0.043));
+        const smallFontSize = Math.max(24, Math.floor(fontSize * 0.75));
 
         const markedImagePath = await Marker.markText({
           backgroundImage: {
             src: uri,
             scale: 1,
           },
-          watermarkTexts: [{
-            text: watermarkText,
-            positionOptions: {
-              position: Position.bottomLeft,
+          watermarkTexts: [
+            {
+              // Label — placed above the lat/lng
+              text: labelText,
+              positionOptions: {
+                X: '2%',
+                Y: `${100 - (((fontSize * 2.2) / imageSize.height) * 100) - 1}%`,
+              },
+              style: {
+                color: '#FF0000',
+                fontName: 'Arial',
+                fontSize: fontSize,
+                bold: true,
+                textBackgroundStyle: {
+                  type: TextBackgroundType.stretchX,
+                  paddingX: 20,
+                  paddingY: 10,
+                  color: 'rgba(0,0,0,0.6)',
+                },
+              },
             },
-            style: {
-              color: '#FFFFFF',
-              fontName: 'Arial',
-              fontSize: fontSize,
-              textBackgroundStyle: {
-                type: TextBackgroundType.stretchX,
-                paddingX: 20,
-                paddingY: 20,
-                color: 'rgba(0,0,0,0.6)',
-              }
-            }
-          }],
+            {
+              // Location line — placed below the label at the very bottom
+              text: locationText,
+              positionOptions: {
+                X: '2%',
+                Y: `${100 - ((fontSize * 1.8) / imageSize.height) * 100}%`,
+              },
+              style: {
+                color: '#fbf3f3ff',
+                fontName: 'Arial',
+                fontSize: smallFontSize,
+                textBackgroundStyle: {
+                  type: TextBackgroundType.stretchX,
+                  paddingX: 20,
+                  paddingY: 10,
+                  color: 'rgba(0,0,0,0.6)',
+                },
+              },
+            },
+          ],
           quality: 100,
         });
 
         const actualMarkedPath = markedImagePath.startsWith('file://') ? markedImagePath.replace('file://', '') : markedImagePath;
 
         await RNFS.copyFile(actualMarkedPath, destPath);
-        await CameraRoll.saveAsset(`file://${destPath}`, {type: 'photo', album: 'PropertySurvey'});
-        
+        await CameraRoll.saveAsset(`file://${destPath}`, { type: 'photo', album: 'PropertySurvey' });
+
         // Add to sync queue
         await ImageSyncService.addPendingImage(destPath, fileName);
-        
+
         try {
-           if (actualMarkedPath !== destPath && await RNFS.exists(actualMarkedPath)) {
-              await RNFS.unlink(actualMarkedPath);
-           }
-        } catch (e) {}
+          if (actualMarkedPath !== destPath && await RNFS.exists(actualMarkedPath)) {
+            await RNFS.unlink(actualMarkedPath);
+          }
+        } catch (e) { }
 
         console.log('Saved:', fileName);
         savedCount++;
@@ -269,7 +293,7 @@ export default function PropertySurveyScreen() {
         validLabels.push(imageLabels[idx]);
       }
     });
-    
+
     await processCapturedImages(validImages, validLabels);
   };
 
@@ -286,11 +310,11 @@ export default function PropertySurveyScreen() {
     }
 
     setSyncing(true);
-    setSyncProgress({current: 0, total: pending.length, fileName: ''});
+    setSyncProgress({ current: 0, total: pending.length, fileName: '' });
 
     await ImageSyncService.syncAllImages(
       (current, total, fileName) => {
-        setSyncProgress({current, total, fileName});
+        setSyncProgress({ current, total, fileName });
       },
       (success, failed) => {
         setSyncing(false);
@@ -309,7 +333,7 @@ export default function PropertySurveyScreen() {
       'Clear All',
       'Are you sure you want to clear all fields and images?',
       [
-        {text: 'Cancel', style: 'cancel'},
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Clear',
           style: 'destructive',
@@ -367,15 +391,15 @@ export default function PropertySurveyScreen() {
 
   return (
     <View style={styles.container}>
-      <Header 
-        title="Property Survey" 
+      <Header
+        title="Property Survey"
         rightButton={
-          <Button 
-            mode="contained" 
+          <Button
+            mode="contained"
             onPress={handleLogout}
             buttonColor={ORANGE}
             compact
-            labelStyle={{fontSize: 11, fontWeight: '700'}}
+            labelStyle={{ fontSize: 11, fontWeight: '700' }}
           >
             LOGOUT
           </Button>
@@ -427,7 +451,7 @@ export default function PropertySurveyScreen() {
                   outlineColor="#BDBDBD"
                   activeOutlineColor={ORANGE}
                   style={styles.textInput}
-                  right={<TextInput.Affix text="*" textStyle={{color: '#F44336'}} />}
+                  right={<TextInput.Affix text="*" textStyle={{ color: '#F44336' }} />}
                 />
               </View>
               <View style={styles.dropdownSpacer} />
@@ -717,7 +741,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.08,
     shadowRadius: 4,
-    shadowOffset: {width: 0, height: -2},
+    shadowOffset: { width: 0, height: -2 },
   },
   footerBtn: {
     flex: 1,
