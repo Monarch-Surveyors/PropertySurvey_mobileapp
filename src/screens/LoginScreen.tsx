@@ -74,8 +74,19 @@ export default function LoginScreen() {
 
         {/* Logo + App name */}
         <View style={styles.logoWrapper}>
-          <View style={styles.logoCircle}>
-            <Text style={styles.logoEmoji}>🏛️</Text>
+          {/* Two logos side by side */}
+          <View style={styles.logosRow}>
+            <Image
+              source={require('../assets/images/MSRDC.png')}
+              style={styles.logoImageLeft}
+              resizeMode="contain"
+            />
+            <View style={styles.logoDivider} />
+            <Image
+              source={require('../assets/images/logo.png')}
+              style={styles.logoImageRight}
+              resizeMode="contain"
+            />
           </View>
           <Text style={styles.appName}>Property Survey App</Text>
           <Text style={styles.appSubtitle}>Municipal Property Management</Text>
@@ -203,14 +214,7 @@ export default function LoginScreen() {
           </Card.Content>
         </Card>
 
-        {/* Logo Image */}
-        <View style={styles.logoImageContainer}>
-          <Image
-            source={require('../assets/images/logo.png')}
-            style={styles.logoImage}
-            resizeMode="contain"
-          />
-        </View>
+
 
     
 
@@ -244,22 +248,26 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 24,
   },
-  logoCircle: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
-    backgroundColor: '#fff',
+  logosRow: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 6,
-    shadowColor: '#000',
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    shadowOffset: {width: 0, height: 4},
+    marginBottom: 4,
   },
-  logoEmoji: {
-    fontSize: 42,
+  logoImageLeft: {
+    width: 90,
+    height: 60,
   },
+  logoDivider: {
+    width: 1.5,
+    height: 50,
+    backgroundColor: '#E0E0E0',
+    marginHorizontal: 16,
+  },
+  logoImageRight: {
+    width: 90,
+    height: 60,
+  },
+
   appName: {
     fontSize: 22,
     fontWeight: '700',
@@ -395,9 +403,9 @@ const styles = StyleSheet.create({
     },
     
   logoImage: {
-    width: 150,
-    height: 80,
-    alignSelf: 'center',
+    width: 74,
+    height: 74,
+    borderRadius: 37,
   },
   
   versionText: {
