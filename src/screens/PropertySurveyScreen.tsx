@@ -180,9 +180,10 @@ export default function PropertySurveyScreen() {
         }).catch(() => ({ width: 1080, height: 1920 }));
 
         const labelText = labels[i];
-        const locationText = ready
+        const hasGPS = location.latitude !== 'N/A' && location.longitude !== 'N/A';
+        const locationText = hasGPS
           ? `Lat: ${location.latitude}  Lng: ${location.longitude}`
-          : 'Fetching location...';
+          : 'GPS unavailable';
 
         const fontSize = Math.max(30, Math.floor(imageSize.width * 0.043));
         const smallFontSize = Math.max(24, Math.floor(fontSize * 0.75));
